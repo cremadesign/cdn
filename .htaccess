@@ -1,0 +1,333 @@
+# Apache Server Configs v2.14.0 | MIT License
+# https://github.com/h5bp/server-configs-apache
+
+# (!) Using `.htaccess` files slows down Apache, therefore, if you have
+# access to the main server configuration file (which is usually called
+# `httpd.conf`), you should add this logic there.
+#
+# https://httpd.apache.org/docs/current/howto/htaccess.html.
+
+# ######################################################################
+# # CROSS-ORIGIN                                                       #
+# ######################################################################
+
+# ----------------------------------------------------------------------
+# | Cross-origin requests                                              |
+# ----------------------------------------------------------------------
+
+# Allow cross-origin requests.
+#
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+# http://enable-cors.org/
+# http://www.w3.org/TR/cors/
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# | Cross-origin images                                                |
+# ----------------------------------------------------------------------
+
+# Send the CORS header for images when browsers request it.
+#
+# https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
+# https://blog.chromium.org/2011/07/using-cross-domain-images-in-webgl-and.html
+
+<IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+        <FilesMatch "\.(bmp|cur|gif|ico|jpe?g|png|svgz?|webp)$">
+            SetEnvIf Origin ":" IS_CORS
+            Header set Access-Control-Allow-Origin "*" env=IS_CORS
+        </FilesMatch>
+    </IfModule>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Cross-origin web fonts                                             |
+# ----------------------------------------------------------------------
+
+# Allow cross-origin access to web fonts.
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Cross-origin resource timing                                       |
+# ----------------------------------------------------------------------
+
+# Allow cross-origin access to the timing information for all resources.
+#
+# If a resource isn't served with a `Timing-Allow-Origin` header that
+# would allow its timing information to be shared with the document,
+# some of the attributes of the `PerformanceResourceTiming` object will
+# be set to zero.
+#
+# http://www.w3.org/TR/resource-timing/
+# http://www.stevesouders.com/blog/2014/08/21/resource-timing-practical-tips/
+
+<IfModule mod_headers.c>
+    Header set Timing-Allow-Origin: "*"
+</IfModule>
+
+
+
+
+
+# ----------------------------------------------------------------------
+# | Forcing `https://`                                                 |
+# ----------------------------------------------------------------------
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Option 1: rewrite www.example.com → example.com
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+AddType image/svg+xml svg svgz
+AddEncoding gzip svgz
+AddType text/html .shtml
+AddHandler server-parsed .html
+AddHandler server-parsed .shtml
+AddHandler server-parsed .cshtml
+AddHandler server-parsed .htm
+Options Indexes FollowSymLinks Includes
+DirectoryIndex index.html
+
+
+
+
+
+
+
+
+
+
+
+
+# ######################################################################
+# # WEB PERFORMANCE                                                    #
+# ######################################################################
+
+# ----------------------------------------------------------------------
+# | Compression                                                        |
+# ----------------------------------------------------------------------
+
+<IfModule mod_deflate.c>
+
+    # Force compression for mangled `Accept-Encoding` request headers
+    # https://developer.yahoo.com/blogs/ydn/pushing-beyond-gzipping-25601.html
+
+    <IfModule mod_setenvif.c>
+        <IfModule mod_headers.c>
+            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+        </IfModule>
+    </IfModule>
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    # Compress all output labeled with one of the following media types.
+    #
+    # (!) For Apache versions below version 2.3.7 you don't need to
+    # enable `mod_filter` and can remove the `<IfModule mod_filter.c>`
+    # and `</IfModule>` lines as `AddOutputFilterByType` is still in
+    # the core directives.
+    #
+    # https://httpd.apache.org/docs/current/mod/mod_filter.html#addoutputfilterbytype
+
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE "application/atom+xml" \
+									  "application/font-woff" \
+                                      "application/javascript" \
+                                      "application/json" \
+                                      "application/ld+json" \
+                                      "application/manifest+json" \
+                                      "application/rdf+xml" \
+                                      "application/rss+xml" \
+                                      "application/schema+json" \
+                                      "application/vnd.geo+json" \
+                                      "application/vnd.ms-fontobject" \
+									  "application/x-font-otf" \
+                                      "application/x-font-ttf" \
+                                      "application/x-javascript" \
+                                      "application/x-web-app-manifest+json" \
+                                      "application/xhtml+xml" \
+                                      "application/xml" \
+                                      "font/eot" \
+                                      "font/opentype" \
+                                      "image/bmp" \
+                                      "image/svg+xml" \
+                                      "image/vnd.microsoft.icon" \
+                                      "image/x-icon" \
+                                      "text/cache-manifest" \
+                                      "text/css" \
+                                      "text/html" \
+                                      "text/javascript" \
+                                      "text/plain" \
+                                      "text/vcard" \
+                                      "text/vnd.rim.location.xloc" \
+                                      "text/vtt" \
+                                      "text/x-component" \
+                                      "text/x-cross-domain-policy" \
+                                      "text/xml"
+
+    </IfModule>
+
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    # Map the following filename extensions to the specified
+    # encoding type in order to make Apache serve the file types
+    # with the appropriate `Content-Encoding` response header
+    # (do note that this will NOT make Apache compress them!).
+    #
+    # If these files types would be served without an appropriate
+    # `Content-Enable` response header, client applications (e.g.:
+    # browsers) wouldn't know that they first need to uncompress
+    # the response, and thus, wouldn't be able to understand the
+    # content.
+    #
+    # https://httpd.apache.org/docs/current/mod/mod_mime.html#addencoding
+
+    <IfModule mod_mime.c>
+        AddEncoding gzip              svgz
+    </IfModule>
+
+</IfModule>
+
+
+
+# ######################################################################
+# # THREW MORE PERFORMANCE CODE BELOW                              #
+# ######################################################################
+
+# adding yet more compression
+<IfModule deflate_module>
+    # Enable compression for the following file types.
+    AddOutputFilterByType            \
+     DEFLATE                         \
+      application/javascript         \
+      text/css                       \
+      text/html                      \
+      text/javascript                \
+      text/plain                     \
+      text/xml                       \
+      image/svg+xml
+</IfModule>
+
+# compress text, html, javascript, css, xml:
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE image/svg+xml
+
+
+<IfModule mod_deflate.c>
+  # Compress HTML, CSS, JavaScript, Text, XML and fonts
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+
+  # Remove browser bugs (only needed for really old browsers)
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  Header append Vary User-Agent
+</IfModule>
+
+# Or, compress certain file types by extension:
+<files *.shtml>
+SetOutputFilter DEFLATE
+</files>
+<files *.js>
+SetOutputFilter DEFLATE
+</files>
+
+<IFModule mod_deflate.c>
+<filesmatch "\.(js|css|html|shtml|php)$">
+SetOutputFilter DEFLATE
+</filesmatch>
+</IFModule>
+
+
+#even more gzipping
+#Gzip
+<ifmodule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/javascript text/css application/x- javascript application/javascript
+</ifmodule>
+#End Gzip
+
+
+AddType image/svg+xml svg svgz
+AddEncoding gzip svgz
+
+
+
+# ######################################################################
+# 	THROWING MORE CODE AT IT
+# 	WOW, This made the score of our site jump up quick!
+# 	https://www.chicagostyleseo.com/2010/04/googles-need-for-speed-use-cache-and-htaccess-to-speed-up-your-site/
+# ######################################################################
+
+Header unset Pragma
+FileETag None
+Header unset ETag
+
+<ifmodule mod_headers.c="">
+Header set Connection keep-alive
+</ifmodule>
+
+# Set Expires Headers
+<FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+Header set Expires "Thu, 15 Jan 2016 20:00:00 GMT"
+</FilesMatch>
+
+# Set the cache-control max-age
+# 1 year
+<FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|svg|svgz|swf)$">
+Header set Cache-Control "max-age=864000, public, must-revalidate"
+</FilesMatch>
+# 2 DAYS
+<FilesMatch "\.(html|htm|shtml|xml|txt|xsl)$">
+Header set Cache-Control "max-age=172800, public, must-revalidate"
+</FilesMatch>
+
+
+<IfModule pagespeed_module>
+ModPagespeed on
+ModPagespeedEnableFilters make_google_analytics_async
+</IfModule>

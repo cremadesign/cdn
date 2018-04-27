@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- Generated manually by Stephen Ginn from 2016-12-28 to 2018-04-26 -->
+<!-- Please note: Edge and Safari don't work without svg heights -->
+
+<svg version="1.1" id="orgChart" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 728.7 472" xml:space="preserve">
+
+	<defs>
+		<style>
+			.fill-black path {fill:#333;}
+			line,polyline {stroke:#333; fill:none;}
+			text, foreignObject {
+				font-family:'Roboto-Regular','Helvetica Neue', Arial, sans-serif;
+				font-size: 9.5px;
+				text-align: center;
+			}
+			foreignObject p {margin:0;}
+			a:hover {cursor: pointer;}
+		</style>
+	</defs>
+
+
+	<!-- ==========================================================================
+			MISC
+	=========================================================================== -->
+
+	<line x1="363.8" y1="61.8" x2="363.8" y2="36.8"/>
+	<line x1="190.3" y1="271.2" x2="190.3" y2="294.8"/>
+	<line x1="298.9" y1="271.2" x2="298.9" y2="367.8"/>
+	<line x1="422.9" y1="271.2" x2="422.9" y2="319.8"/>
+	<line stroke-dasharray="5" x1="166.3" y1="136.8" x2="314" y2="136.8"/>
+	<line stroke-dasharray="5" x1="414.5" y1="136.8" x2="604.3" y2="136.8"/>
+	<line x1="668.4" y1="201.3" x2="668.4" y2="326.8"/>
+	<line x1="100.8" y1="238.5" x2="100.8" y2="270.8"/>
+	<polyline points="101.4,87.2 101.4,61.8 669.8,61.8 669.8,97.5 "/>
+	<polyline points="556.6,290.5 556.6,270.8 62.4,270.8 62.4,341.8 "/>
+
+
+	<!-- ==========================================================================
+			ORG CHART TITLE
+	=========================================================================== -->
+
+	<image xlink:href="partners/amfirst-holdings/black.svgz" x="229" y="4" width="273.105" height="30.522" />
+
+
+	<!-- ==========================================================================
+			AMFIRST INSURANCE COMPANY
+	=========================================================================== -->
+
+	<a href="http://www.amfirstinsco.com" target="_blank">
+	<image xlink:href="partners/amfirst/color.svgz" x="56" y="95" width="90" height="94" />
+	</a>
+
+	<text transform="matrix(1 0 0 1 43.2738 213.3506)">
+		<tspan x="0" y="0">Oklahoma Domiciled Insurer</tspan>
+		<tspan x="-21.3" y="11.4">Owned 100% by AmFirst Holdings, Inc.</tspan>
+	</text>
+
+
+	<!-- ==========================================================================
+			NEW PROVIDENCE LIFE
+	=========================================================================== -->
+
+	<a href="http://newprovidencelife.com" target="_blank">
+	<image xlink:href="partners/npl/color.svgz" x="311" y="88" width="106" height="106"/>
+	</a>
+
+	<text transform="matrix(1 0 0 1 305.5963 210.1721)">
+		<tspan x="0" y="0">Bahamas Domiciled Insurer</tspan>
+		<tspan x="-40.2" y="11.4">Owned 57.75% by AmFirst Insurance Company</tspan>
+		<tspan x="-17.8" y="22.8">Owned 17.25% by OIC Holdings, Inc.</tspan>
+	</text>
+
+
+	<!-- ==========================================================================
+			OIC HOLDINGS
+	=========================================================================== -->
+
+	<image xlink:href="partners/oic-holdings/black.svgz" x="614" y="108" width="112" height="51"/>
+
+	<text transform="matrix(1 0 0 1 637.3837 177.8506)">
+		<tspan x="0" y="0">Owned 100% by</tspan>
+		<tspan x="-13" y="11.4">AmFirst Holdings, Inc.</tspan>
+	</text>
+
+
+	<!-- ==========================================================================
+			MONITOR LIFE
+	=========================================================================== -->
+
+	<a href="http://monitorlife.com" target="_blank">
+	<image xlink:href="partners/monitor-life/color.svgz" x="15" y="348" width="90" height="73"/>
+	</a>
+
+	<text transform="matrix(1 0 0 1 3.9489 434.2682)">
+		<tspan x="0" y="0">New York Domiciled Insurer</tspan>
+		<tspan x="25" y="11.4">Owned 100% by</tspan>
+		<tspan x="19.8" y="22.8">AmFirst Insurance</tspan>
+		<tspan x="39.5" y="34.2">Company</tspan>
+	</text>
+
+
+	<!-- ==========================================================================
+			LONDON AMERICA
+	=========================================================================== -->
+
+	<image xlink:href="partners/london-america/color.svgz" x="134.679" y="299.29" width="112.33" height="84.048"/>
+
+	<text transform="matrix(1 0 0 1 137.6623 401.4668)">
+		<tspan x="0" y="0">Nevis Domiciled Insurer</tspan>
+		<tspan x="15.4" y="11.4">Owned 100% by</tspan>
+		<tspan x="12.6" y="22.8">AmFirst Insurance</tspan>
+		<tspan x="31.1" y="34.2">Company</tspan>
+	</text>
+
+
+	<!-- ==========================================================================
+			AFIC ADMINISTRATORS
+	=========================================================================== -->
+
+	<image xlink:href="partners/afic-administrators/black.svgz" x="259" y="377" width="80" height="34"/>
+
+	<text transform="matrix(1 0 0 1 258 426.4198)" class="text">
+		<tspan x="6" y="0">Owned 100% by</tspan>
+		<tspan x="1.4" y="12">AmFirst Insurance</tspan>
+		<tspan x="20" y="24">Company</tspan>
+	</text>
+
+
+	<!-- ==========================================================================
+			TPM LIFE
+	=========================================================================== -->
+
+	<a href="http://tpmlife.com" target="_blank">
+	<image xlink:href="partners/tpm/color.svgz" x="358.057" y="324.214" width="129.868" height="59.162" />
+	</a>
+
+	<text transform="matrix(1 0 0 1 356.4644 400.2113)">
+		<tspan x="0" y="0">Pennsylvania Domiciled Insurer</tspan>
+		<tspan x="33.8" y="11.4">Owned 100% by</tspan>
+		<tspan x="8.5" y="22.8">AmFirst Insurance Company</tspan>
+	</text>
+
+
+	<!-- ==========================================================================
+			INFO LOCKBOX
+	=========================================================================== -->
+
+	<a href="http://insurancelockbox.com" target="_blank">
+	<image xlink:href="partners/lockbox/black.svgz" x="513" y="295" width="105" height="30" />
+	</a>
+
+	<text transform="matrix(1 0 0 1 520.5062 337.8946)">
+		<tspan x="0" y="0">Infolockbox.com, Inc.</tspan>
+		<tspan x="11.7" y="11.4">Owned 100% by</tspan>
+		<tspan x="-14.8" y="22.8">AmFirst Insurance Company</tspan>
+	</text>
+
+
+	<!-- ==========================================================================
+			AMFIRST LTD
+	=========================================================================== -->
+
+	<image xlink:href="partners/amfirst-ltd/color.svgz" x="623.326" y="339.821" width="90.216" height="77.438"/>
+
+	<text transform="matrix(1 0 0 1 612.1184 434.2682)">
+		<tspan x="0" y="0">Bermuda Domiciled Insurer</tspan>
+		<tspan x="23.9" y="11.4">Owned 100% by</tspan>
+		<tspan x="19.9" y="22.8">OIC Holdings, Inc.</tspan>
+	</text>
+
+</svg>
