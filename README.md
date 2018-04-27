@@ -27,7 +27,7 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 - **White** — pure white logo for dark backgrounds
 - **Black** — black or black and white logo
 - **Color/4c** — haven't decided if the 4c abbreviation should be standard
-- **Stacked/Square** — besides the MWG division logos, this is the default
+- **Stacked/Square/Center** — besides the MWG division logos, this is the default
 - **Horizontal** — duhh...used for wide logos.
 
 ## SVG Export Settings
