@@ -3,20 +3,20 @@ The following cdn can be used for all websites managed by Crema. I don't want to
 
 ## Naming Scheme
 
+**Carriers**<br>
+http://cdn.cremadesignstudio.com/logos/carriers/ `CARRIER` - `SIZE` . `EXT`
+
 **Corporate**<br>
 http://cdn.cremadesignstudio.com/logos/corporate/ `COLOR` - `SIZE` . `EXT`
 
 **Divisions**<br>
-http://cdn.cremadesignstudio.com/logos/divisions/ `DIVISION` / `STYLE` - `COLOR` - `SIZE` . `EXT`
+http://cdn.cremadesignstudio.com/logos/divisions/ `DIVISION` / `COLOR` - `SIZE` . `EXT`
 
 **Partners**<br>
 http://cdn.cremadesignstudio.com/logos/partners/ `PARTNER` / `STYLE` - `COLOR` - `SIZE` . `EXT`
 
 **Products**<br>
 http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` - `SIZE` . `EXT`
-
-**Carriers**<br>
-http://cdn.cremadesignstudio.com/logos/carriers/ `CARRIER` - `SIZE` . `EXT`
 
 ##### Notes
 - The style tag is optional for the default logo
