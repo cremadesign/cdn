@@ -1,0 +1,70 @@
+body {
+    background: #ffffff;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.navbar {margin-bottom: 45px;}
+
+.card {
+    padding: 20px;
+    /*background: white;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    margin-bottom: 30px;*/
+}
+
+.mb {margin-bottom: 15px;}
+.mt {margin-top: 15px;}
+.ml {margin-left: 15px;}
+.mr {margin-right: 15px;}
+.mt0, .card *:first-child {margin-top:0 !important;}
+.mb0 {margin-bottom: 0 !important;}
+.pt0 {padding-top: 0 !important;}
+.pb0 {padding-bottom: 0 !important;}
+
+h1 {margin-top: 0; margin-bottom: 20px;}
+
+header {text-align: center; margin-bottom: 30px;}
+
+header h1 {
+    font-size: 75px;
+    margin-bottom: 0px;
+}
+
+header .lead {
+    font-size: 28px;
+}
+
+.form-control {
+    margin-bottom: 20px;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    background-color: #cbd3dc;
+    color: #333;
+}
+
+.no-top-radius {
+    border-top-left-radius:0;
+    border-top-right-radius:0;
+}
+
+.no-bottom-radius {
+    border-bottom-left-radius:0;
+    border-bottom-right-radius:0;
+}
+
+/* https://stackoverflow.com/questions/34450586/justify-buttons-with-bootstrap-v4/34450587 */
+
+.btn-group-justified {
+    display: flex;
+    width: 100%;
+}
+
+.btn-group-justified .btn, .btn-group-justified .btn-group {
+    flex: 1;
+}
+
+.btn-group-justified .btn .btn, .btn-group-justified .btn-group .btn {width: 100%;}
+
+.btn-group-justified .btn .dropdown-menu, .btn-group-justified .btn-group .dropdown-menu {left: auto;}

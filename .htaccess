@@ -1,11 +1,26 @@
-# Apache Server Configs v2.14.0 | MIT License
-# https://github.com/h5bp/server-configs-apache
+# ######################################################################
+# # REWRITES                                                           #
+# ######################################################################
 
-# (!) Using `.htaccess` files slows down Apache, therefore, if you have
-# access to the main server configuration file (which is usually called
-# `httpd.conf`), you should add this logic there.
-#
-# https://httpd.apache.org/docs/current/howto/htaccess.html.
+<IfModule mod_rewrite.c>
+	# (1)
+    RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteBase /
+	
+	# Rewrite www.example.com → example.com
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
+	
+	# ----------------------------------------------------------------------
+    # FORCE HTTPS
+    # ----------------------------------------------------------------------
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
 
 # ######################################################################
 # # CROSS-ORIGIN                                                       #
