@@ -8,12 +8,12 @@
 	RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteBase /
-	
+
 	# Rewrite www.example.com → example.com
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
-	
+
 	# ----------------------------------------------------------------------
     # FORCE HTTPS
     # ----------------------------------------------------------------------
@@ -117,17 +117,6 @@ AddHandler server-parsed .cshtml
 AddHandler server-parsed .htm
 Options Indexes FollowSymLinks Includes
 DirectoryIndex index.html
-
-
-
-
-
-
-
-
-
-
-
 
 # ######################################################################
 # # WEB PERFORMANCE                                                    #
@@ -345,4 +334,20 @@ Header set Cache-Control "max-age=172800, public, must-revalidate"
 <IfModule pagespeed_module>
 ModPagespeed on
 ModPagespeedEnableFilters make_google_analytics_async
+</IfModule>
+
+
+
+
+
+
+
+# ----------------------------------------------------------------------
+# | Fix “Specify a Vary: Accept-Encoding Header” Warning in Apache	   |
+# ----------------------------------------------------------------------
+# Fix “Specify a Vary: Accept-Encoding Header” Warning in Apache
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml x-font/otf x-font/ttf x-font/eot x-font/woff x-font/woff2
+
+<IfModule mod_headers.c>
+Header set Vary: "Accept-Encoding"
 </IfModule>

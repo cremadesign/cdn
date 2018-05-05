@@ -40,7 +40,7 @@
 			ORG CHART TITLE
 	=========================================================================== -->
 
-	<image xlink:href="partners/amfirst-holdings/black.svgz" x="229" y="4" width="273.105" height="30.522" />
+	<image xlink:href="partners/amfirst-holdings/black.svg" x="229" y="4" width="273.105" height="30.522" />
 
 
 	<!-- ==========================================================================
@@ -48,7 +48,7 @@
 	=========================================================================== -->
 
 	<a href="http://www.amfirstinsco.com" target="_blank">
-	<image xlink:href="partners/amfirst/color.svgz" x="56" y="95" width="90" height="94" />
+	<image xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/amfirst/color.svgz" x="56" y="95" width="90" height="94" />
 	</a>
 
 	<text transform="matrix(1 0 0 1 43.2738 213.3506)">
@@ -76,7 +76,7 @@
 			OIC HOLDINGS
 	=========================================================================== -->
 
-	<image xlink:href="partners/oic-holdings/black.svgz" x="614" y="108" width="112" height="51"/>
+	<image xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/oic-holdings/black.svgz" x="614" y="108" width="112" height="51"/>
 
 	<text transform="matrix(1 0 0 1 637.3837 177.8506)">
 		<tspan x="0" y="0">Owned 100% by</tspan>
@@ -89,7 +89,7 @@
 	=========================================================================== -->
 
 	<a href="http://monitorlife.com" target="_blank">
-	<image xlink:href="partners/monitor-life/square-color.svgz" x="15" y="348" width="90" height="73"/>
+	<image xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/monitor-life/square-color.svgz" x="15" y="348" width="90" height="73"/>
 	</a>
 
 	<text transform="matrix(1 0 0 1 3.9489 434.2682)">
@@ -104,7 +104,7 @@
 			LONDON AMERICA
 	=========================================================================== -->
 
-	<image xlink:href="partners/london-america/color.svgz" x="134.679" y="299.29" width="112.33" height="84.048"/>
+	<image xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/london-america/color.svgz" x="134.679" y="299.29" width="112.33" height="84.048"/>
 
 	<text transform="matrix(1 0 0 1 137.6623 401.4668)">
 		<tspan x="0" y="0">Nevis Domiciled Insurer</tspan>
@@ -118,7 +118,7 @@
 			AFIC ADMINISTRATORS
 	=========================================================================== -->
 
-	<image xlink:href="partners/afic-administrators/black.svgz" x="259" y="377" width="80" height="34"/>
+	<image xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/afic-administrators/black.svgz" x="259" y="377" width="80" height="34"/>
 
 	<text transform="matrix(1 0 0 1 258 426.4198)" class="text">
 		<tspan x="6" y="0">Owned 100% by</tspan>
@@ -132,7 +132,7 @@
 	=========================================================================== -->
 
 	<a href="http://tpmlife.com" target="_blank">
-	<image xlink:href="partners/tpm/color.svgz" x="358.057" y="324.214" width="129.868" height="59.162" />
+	<image xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/tpm/color.svgz" x="358.057" y="324.214" width="129.868" height="59.162" />
 	</a>
 
 	<text transform="matrix(1 0 0 1 356.4644 400.2113)">
@@ -147,7 +147,7 @@
 	=========================================================================== -->
 
 	<a href="http://insurancelockbox.com" target="_blank">
-	<image xlink:href="partners/lockbox/black.svgz" x="513" y="295" width="105" height="30" />
+	<image xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/lockbox/info-black.svgz" x="513" y="295" width="105" height="30" />
 	</a>
 
 	<text transform="matrix(1 0 0 1 520.5062 337.8946)">
@@ -161,7 +161,7 @@
 			AMFIRST LTD
 	=========================================================================== -->
 
-	<image xlink:href="partners/amfirst-ltd/color.svgz" x="623.326" y="339.821" width="90.216" height="77.438"/>
+	<image xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/amfirst-ltd/color.svgz" x="623.326" y="339.821" width="90.216" height="77.438"/>
 
 	<text transform="matrix(1 0 0 1 612.1184 434.2682)">
 		<tspan x="0" y="0">Bermuda Domiciled Insurer</tspan>
