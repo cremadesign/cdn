@@ -1,130 +1,73 @@
-# ######################################################################
-# # REWRITES                                                           #
-# ######################################################################
+#
+#   Crema CDN Config
+#   Updated on 2018-10-16
+#
+
+
+# ============================================================================
+#   REWRITES
+# ============================================================================
 
 <IfModule mod_rewrite.c>
-	# (1)
+    # Enable Server Rewrites
     RewriteEngine On
-	RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Enable Symbolic Links and Enable Directory Indexes
+    Options +FollowSymlinks +Indexes
+
+	# Make sure we don't redirect to our user home folder
 	RewriteBase /
 
-	# Rewrite www.example.com → example.com
+    # ------------------------------------------------------------------------
+	# 	REMOVE FILE EXTENSIONS
+	# ------------------------------------------------------------------------
+
+	# Remove Trailing Slash
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)/$ $1 [R=301,L]
+
+	# Rewrite Links Without Extensions
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+	# 301 Redirect Links With Extensions
+	RewriteCond %{THE_REQUEST} \.html
+	RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+
+	# Index Redirect
+	RewriteRule ^index\.html$ / [R=301,L]
+	RewriteRule ^(.*)/index\.html$ /$1/ [R=301,L]
+
+	# ------------------------------------------------------------------------
+	# 	HTTPS REWRITES
+	# ------------------------------------------------------------------------
+
+	# Set ENV variable to allow automatic https rewrites
+	RewriteCond %{HTTPS} =on
+	RewriteRule ^ - [env=proto:https]
+	RewriteCond %{HTTPS} !=on
+	RewriteRule ^ - [env=proto:http]
+
+	# Force HTTPS
     RewriteCond %{HTTPS} !=on
-    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-    RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
-
-	# ----------------------------------------------------------------------
-    # FORCE HTTPS
-    # ----------------------------------------------------------------------
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
 
-# ######################################################################
-# # CROSS-ORIGIN                                                       #
-# ######################################################################
+# ============================================================================
+#	MEDIA TYPES
+# ============================================================================
 
-# ----------------------------------------------------------------------
-# | Cross-origin requests                                              |
-# ----------------------------------------------------------------------
-
-# Allow cross-origin requests.
-#
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
-# http://enable-cors.org/
-# http://www.w3.org/TR/cors/
-
-<IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
+<IfModule mod_mime.c>
+    AddType image/svg+xml           svg svgz
+    AddType image/webp              webp
 </IfModule>
 
 
-# ----------------------------------------------------------------------
-# | Cross-origin images                                                |
-# ----------------------------------------------------------------------
-
-# Send the CORS header for images when browsers request it.
-#
-# https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
-# https://blog.chromium.org/2011/07/using-cross-domain-images-in-webgl-and.html
-
-<IfModule mod_setenvif.c>
-    <IfModule mod_headers.c>
-        <FilesMatch "\.(bmp|cur|gif|ico|jpe?g|png|svgz?|webp)$">
-            SetEnvIf Origin ":" IS_CORS
-            Header set Access-Control-Allow-Origin "*" env=IS_CORS
-        </FilesMatch>
-    </IfModule>
-</IfModule>
-
-# ----------------------------------------------------------------------
-# | Cross-origin web fonts                                             |
-# ----------------------------------------------------------------------
-
-# Allow cross-origin access to web fonts.
-
-<IfModule mod_headers.c>
-    <FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
-        Header set Access-Control-Allow-Origin "*"
-    </FilesMatch>
-</IfModule>
-
-# ----------------------------------------------------------------------
-# | Cross-origin resource timing                                       |
-# ----------------------------------------------------------------------
-
-# Allow cross-origin access to the timing information for all resources.
-#
-# If a resource isn't served with a `Timing-Allow-Origin` header that
-# would allow its timing information to be shared with the document,
-# some of the attributes of the `PerformanceResourceTiming` object will
-# be set to zero.
-#
-# http://www.w3.org/TR/resource-timing/
-# http://www.stevesouders.com/blog/2014/08/21/resource-timing-practical-tips/
-
-<IfModule mod_headers.c>
-    Header set Timing-Allow-Origin: "*"
-</IfModule>
-
-
-
-
-
-# ----------------------------------------------------------------------
-# | Forcing `https://`                                                 |
-# ----------------------------------------------------------------------
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# Option 1: rewrite www.example.com → example.com
-
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{HTTPS} !=on
-    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-    RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
-</IfModule>
-
-AddType image/svg+xml svg svgz
-AddEncoding gzip svgz
-AddType text/html .shtml
-AddHandler server-parsed .html
-AddHandler server-parsed .shtml
-AddHandler server-parsed .cshtml
-AddHandler server-parsed .htm
-Options Indexes FollowSymLinks Includes
-DirectoryIndex index.html
-
-# ######################################################################
-# # WEB PERFORMANCE                                                    #
-# ######################################################################
-
-# ----------------------------------------------------------------------
-# | Compression                                                        |
-# ----------------------------------------------------------------------
+# ============================================================================
+#	COMPRESSION
+# ============================================================================
 
 <IfModule mod_deflate.c>
 
@@ -141,17 +84,10 @@ DirectoryIndex index.html
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     # Compress all output labeled with one of the following media types.
-    #
-    # (!) For Apache versions below version 2.3.7 you don't need to
-    # enable `mod_filter` and can remove the `<IfModule mod_filter.c>`
-    # and `</IfModule>` lines as `AddOutputFilterByType` is still in
-    # the core directives.
-    #
     # https://httpd.apache.org/docs/current/mod/mod_filter.html#addoutputfilterbytype
 
     <IfModule mod_filter.c>
         AddOutputFilterByType DEFLATE "application/atom+xml" \
-									  "application/font-woff" \
                                       "application/javascript" \
                                       "application/json" \
                                       "application/ld+json" \
@@ -161,23 +97,28 @@ DirectoryIndex index.html
                                       "application/schema+json" \
                                       "application/vnd.geo+json" \
                                       "application/vnd.ms-fontobject" \
-									  "application/x-font-otf" \
+                                      "application/wasm" \
                                       "application/x-font-ttf" \
                                       "application/x-javascript" \
                                       "application/x-web-app-manifest+json" \
                                       "application/xhtml+xml" \
                                       "application/xml" \
+                                      "font/collection" \
                                       "font/eot" \
                                       "font/opentype" \
+                                      "font/otf" \
+                                      "font/ttf" \
                                       "image/bmp" \
                                       "image/svg+xml" \
                                       "image/vnd.microsoft.icon" \
                                       "image/x-icon" \
                                       "text/cache-manifest" \
+                                      "text/calendar" \
                                       "text/css" \
                                       "text/html" \
                                       "text/javascript" \
                                       "text/plain" \
+                                      "text/markdown" \
                                       "text/vcard" \
                                       "text/vnd.rim.location.xloc" \
                                       "text/vtt" \
@@ -186,7 +127,6 @@ DirectoryIndex index.html
                                       "text/xml"
 
     </IfModule>
-
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -210,144 +150,128 @@ DirectoryIndex index.html
 </IfModule>
 
 
-
-# ######################################################################
-# # THREW MORE PERFORMANCE CODE BELOW                              #
-# ######################################################################
-
-# adding yet more compression
-<IfModule deflate_module>
-    # Enable compression for the following file types.
-    AddOutputFilterByType            \
-     DEFLATE                         \
-      application/javascript         \
-      text/css                       \
-      text/html                      \
-      text/javascript                \
-      text/plain                     \
-      text/xml                       \
-      image/svg+xml
-</IfModule>
-
-# compress text, html, javascript, css, xml:
-AddOutputFilterByType DEFLATE text/plain
-AddOutputFilterByType DEFLATE text/html
-AddOutputFilterByType DEFLATE text/xml
-AddOutputFilterByType DEFLATE text/css
-AddOutputFilterByType DEFLATE application/xml
-AddOutputFilterByType DEFLATE application/xhtml+xml
-AddOutputFilterByType DEFLATE application/rss+xml
-AddOutputFilterByType DEFLATE application/javascript
-AddOutputFilterByType DEFLATE application/x-javascript
-AddOutputFilterByType DEFLATE image/svg+xml
-
-
-<IfModule mod_deflate.c>
-  # Compress HTML, CSS, JavaScript, Text, XML and fonts
-  AddOutputFilterByType DEFLATE application/javascript
-  AddOutputFilterByType DEFLATE application/rss+xml
-  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
-  AddOutputFilterByType DEFLATE application/x-font
-  AddOutputFilterByType DEFLATE application/x-font-opentype
-  AddOutputFilterByType DEFLATE application/x-font-otf
-  AddOutputFilterByType DEFLATE application/x-font-truetype
-  AddOutputFilterByType DEFLATE application/x-font-ttf
-  AddOutputFilterByType DEFLATE application/x-javascript
-  AddOutputFilterByType DEFLATE application/xhtml+xml
-  AddOutputFilterByType DEFLATE application/xml
-  AddOutputFilterByType DEFLATE font/opentype
-  AddOutputFilterByType DEFLATE font/otf
-  AddOutputFilterByType DEFLATE font/ttf
-  AddOutputFilterByType DEFLATE image/svg+xml
-  AddOutputFilterByType DEFLATE image/x-icon
-  AddOutputFilterByType DEFLATE text/css
-  AddOutputFilterByType DEFLATE text/html
-  AddOutputFilterByType DEFLATE text/javascript
-  AddOutputFilterByType DEFLATE text/plain
-  AddOutputFilterByType DEFLATE text/xml
-
-  # Remove browser bugs (only needed for really old browsers)
-  BrowserMatch ^Mozilla/4 gzip-only-text/html
-  BrowserMatch ^Mozilla/4\.0[678] no-gzip
-  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
-  Header append Vary User-Agent
-</IfModule>
-
-# Or, compress certain file types by extension:
-<files *.shtml>
-SetOutputFilter DEFLATE
-</files>
-<files *.js>
-SetOutputFilter DEFLATE
-</files>
-
-<IFModule mod_deflate.c>
-<filesmatch "\.(js|css|html|shtml|php)$">
-SetOutputFilter DEFLATE
-</filesmatch>
-</IFModule>
-
-
-#even more gzipping
-#Gzip
-<ifmodule mod_deflate.c>
-AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/javascript text/css application/x- javascript application/javascript
-</ifmodule>
-#End Gzip
-
-
-AddType image/svg+xml svg svgz
-AddEncoding gzip svgz
-
-
-
-# ######################################################################
-# 	THROWING MORE CODE AT IT
-# 	WOW, This made the score of our site jump up quick!
-# 	https://www.chicagostyleseo.com/2010/04/googles-need-for-speed-use-cache-and-htaccess-to-speed-up-your-site/
-# ######################################################################
-
-Header unset Pragma
-FileETag None
-Header unset ETag
-
-<ifmodule mod_headers.c="">
-Header set Connection keep-alive
-</ifmodule>
-
-# Set Expires Headers
-<FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
-Header set Expires "Thu, 15 Jan 2016 20:00:00 GMT"
-</FilesMatch>
-
-# Set the cache-control max-age
-# 1 year
-<FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|svg|svgz|swf)$">
-Header set Cache-Control "max-age=864000, public, must-revalidate"
-</FilesMatch>
-# 2 DAYS
-<FilesMatch "\.(html|htm|shtml|xml|txt|xsl)$">
-Header set Cache-Control "max-age=172800, public, must-revalidate"
-</FilesMatch>
-
-
-<IfModule pagespeed_module>
-ModPagespeed on
-ModPagespeedEnableFilters make_google_analytics_async
-</IfModule>
-
-
-
-
-
-
-
-# ----------------------------------------------------------------------
-# | Fix “Specify a Vary: Accept-Encoding Header” Warning in Apache	   |
-# ----------------------------------------------------------------------
-# Fix “Specify a Vary: Accept-Encoding Header” Warning in Apache
-AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml x-font/otf x-font/ttf x-font/eot x-font/woff x-font/woff2
+# ============================================================================
+#	ADD CACHING
+#	https://gist.github.com/hans2103/fca6f184df1c2c41b3dd
+# ============================================================================
 
 <IfModule mod_headers.c>
-Header set Vary: "Accept-Encoding"
+	Header set Connection keep-alive
+
+	# Set Expires Headers
+	<FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|webp|gif|js|css|swf)$">
+	Header set Expires "Thu, 02 Jan 2020 20:00:00 GMT"
+	</FilesMatch>
+
+	# Cache-control headers
+
+    # 1 YEAR
+    <filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|webp|gif|swf)$">
+        Header set Cache-Control "max-age=864000, public"
+    </filesMatch>
+
+    # 1 DAY
+    <filesMatch "\.(css|js)$">
+        Header set Cache-Control "max-age=1209600, private"
+    </filesMatch>
+
+    # 2 HOURS
+    <filesMatch "\.(html|htm|xml|txt)$">
+        Header set Cache-Control "max-age=7200"
+    </filesMatch>
+
+    <FilesMatch "\.(gif|jpg|png|webp|ico|css|js|pdf|txt)$">
+        Header append Cache-Control "public"
+    </FilesMatch>
 </IfModule>
+
+<IfModule pagespeed_module>
+	ModPagespeed on
+	ModPagespeedEnableFilters make_google_analytics_async
+</IfModule>
+
+# Another method of cache control. I'm not sure both methods are necessary.
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresDefault                                      "access plus 1 month"
+
+    # CSS
+    ExpiresByType text/css                              "access plus 1 year"
+
+    # Data interchange
+    ExpiresByType application/json                      "access plus 0 seconds"
+    ExpiresByType application/xml                       "access plus 0 seconds"
+    ExpiresByType text/xml                              "access plus 0 seconds"
+
+    # Favicon (cannot be renamed!)
+    ExpiresByType image/x-icon                          "access plus 1 week"
+
+    # HTML components (HTCs)
+    ExpiresByType text/x-component                      "access plus 1 month"
+
+    # HTML
+    ExpiresByType text/html                             "access plus 0 seconds"
+
+    # JavaScript
+    ExpiresByType application/javascript                "access plus 1 year"
+
+    # Manifest files
+    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
+    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
+
+    # Media
+    ExpiresByType audio/ogg                             "access plus 1 month"
+    ExpiresByType image/gif                             "access plus 1 month"
+    ExpiresByType image/jpeg                            "access plus 1 month"
+    ExpiresByType image/png                             "access plus 1 month"
+	ExpiresByType image/webp                            "access plus 1 month"
+    ExpiresByType video/mp4                             "access plus 1 month"
+    ExpiresByType video/ogg                             "access plus 1 month"
+    ExpiresByType video/webm                            "access plus 1 month"
+
+    # Web feeds
+    ExpiresByType application/atom+xml                  "access plus 1 hour"
+    ExpiresByType application/rss+xml                   "access plus 1 hour"
+
+    # Web fonts
+    ExpiresByType application/font-woff2                "access plus 1 month"
+    ExpiresByType application/font-woff                 "access plus 1 month"
+    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
+    ExpiresByType application/x-font-ttf                "access plus 1 month"
+    ExpiresByType font/opentype                         "access plus 1 month"
+    ExpiresByType image/svg+xml                         "access plus 1 month"
+</IfModule>
+
+
+# ============================================================================
+#	ALLOW CROSS DOMAIN ACCESS
+# ============================================================================
+
+<IfModule mod_headers.c>
+    # Allow cross domain access from all sites
+    Header set Access-Control-Allow-Origin "*"
+
+    # Send the CORS header for images when browsers request it.
+    <IfModule mod_setenvif.c>
+        <FilesMatch "\.(bmp|cur|gif|ico|jpe?g|png|svgz?|webp)$">
+            SetEnvIf Origin ":" IS_CORS
+            Header set Access-Control-Allow-Origin "*" env=IS_CORS
+        </FilesMatch>
+    </IfModule>
+
+    # Allow cross-origin access to web fonts.
+    <FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+
+
+Header set Strict-Transport-Security "max-age=300; includeSubDomains" env=HTTPS
+Header set Content-Security-Policy "upgrade-insecure-requests" env=HTTPS
+Header set X-Content-Type-Options "nosniff"
+Header unset "X-Powered-By"
+<FilesMatch "\.(htm|html|php)$">
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"
+</FilesMatch>
