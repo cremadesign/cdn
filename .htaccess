@@ -59,10 +59,36 @@
 #	MEDIA TYPES
 # ============================================================================
 
+# Add webp support...
+
 <IfModule mod_mime.c>
     AddType image/svg+xml           svg svgz
     AddType image/webp              webp
 </IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # check if browser accepts webp
+    RewriteCond %{HTTP_ACCEPT} image/webp
+
+    # check if file is jpg or png
+    RewriteCond %{REQUEST_FILENAME} (.*).(jpg|png)$
+
+    # check if corresponding webp file exists image.png -> image.webp
+    RewriteCond %1.webp -f
+
+    # serve up webp instead
+    RewriteRule (.+).(jpg|png)$ $1.webp [T=image/webp,E=accept:1]
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header append Vary Accept env=REDIRECT_accept
+</IfModule>
+
+# Allow SSI Includes...
+
+AddType text/html .shtml
+AddHandler server-parsed .htm .html .shtml .cshtml .ssi
 
 
 # ============================================================================
@@ -241,6 +267,16 @@
     ExpiresByType font/opentype                         "access plus 1 month"
     ExpiresByType image/svg+xml                         "access plus 1 month"
 </IfModule>
+
+
+# ============================================================================
+#	COMPLETELY DISABLE CACHING
+# ============================================================================
+#<IfModule mod_headers.c>
+#	Header set Cache-Control "no-cache, no-store, must-revalidate"
+#	Header set Pragma "no-cache"
+#	Header set Expires 0
+#</IfModule>
 
 
 # ============================================================================
