@@ -1,0 +1,132 @@
+#! /usr/bin/env bash
+. ~/.bash_profile
+
+# -----
+# Org Chart Compiler
+# Created by Stephen Ginn
+# Modified 2018-11-01
+# This script replaces Illustrator-exported <rect> elements with images and links.
+# -----
+
+source="orgchart-source.svg"
+dest="orgchart-linked.svg"
+destname=$(basename "$dest" .svg)
+tabs 7; tab2="    ";
+
+# This function replaces each placeholder box with the appropriate logo.
+logoswap () {
+    line="$1"
+    website="" # optional
+
+    if [[ $line == *'<rect id="amf-holdings"'* ]]; then
+        image_id="amf-holdings"
+        image_path="partners/holdings/amf-holdings-black.svgz"
+    elif [[ $line == *'<rect id="amfirst"'* ]]; then
+        image_id="amfirst"
+        image_path="partners/amfirst/color.svgz"
+        website="https://www.amfirstinsco.com"
+    elif [[ $line == *'<rect id="new-providence-life"'* ]]; then
+        image_id="new-providence-life"
+        image_path="partners/npl/color.svgz"
+        website="https://newprovidencelife.com"
+    elif [[ $line == *'<rect id="oic-holdings"'* ]]; then
+        image_id="oic-holdings"
+        image_path="partners/holdings/oic-holdings-black.svgz"
+    elif [[ $line == *'<rect id="amfirst-ltd"'* ]]; then
+        image_id="amfirst-ltd"
+        image_path="partners/amfirst-ltd/color.svgz"
+    elif [[ $line == *'<rect id="info-lockbox"'* ]]; then
+        image_id="info-lockbox"
+        image_path="partners/lockbox/info-black.svgz"
+        website="https://insurancelockbox.com"
+    elif [[ $line == *'<rect id="amf-services"'* ]]; then
+        image_id="amf-services"
+        image_path="partners/holdings/amf-services-black.svgz"
+    elif [[ $line == *'<rect id="amfirst-life"'* ]]; then
+        image_id="amfirst-life"
+        image_path="partners/amfirst-life/center-color.svgz"
+        website="https://amfirstlife.com"
+    elif [[ $line == *'<rect id="monitor-life"'* ]]; then
+        image_id="monitor-life"
+        image_path="partners/monitor-life/color.svgz"
+        website="https://monitorlife.com"
+    elif [[ $line == *'<rect id="london-america"'* ]]; then
+        image_id="london-america"
+        image_path="partners/london-america/color.svgz"
+    elif [[ $line == *'<rect id="tpm-life"'* ]]; then
+        image_id="tpm-life"
+        image_path="partners/tpm/color.svgz"
+        website="https://tpmins.com"
+    elif [[ $line == *'<rect id="amfirst-specialty"'* ]]; then
+        image_id="amfirst-specialty"
+        image_path="partners/amfirst-specialty/color.svgz"
+    elif [[ $line == *'<rect id="afic-administrators"'* ]]; then
+        image_id="afic-administrators"
+        image_path="partners/holdings/afic-administrators-black.svgz"
+    elif [[ $line == *'<rect id="amfirst-capital"'* ]]; then
+        image_id="amfirst-capital"
+        image_path="partners/amfirst-capital/color.svgz"
+    elif [[ $line == *'<rect id="amfirst-holdings"'* ]]; then
+        # Org Chart Title
+        image_id="amfirst-holdings"
+        image_path="partners/amfirst-holdings/black.svgz"
+    fi
+
+    image_url="https://cdn.cremadesignstudio.com/mwg/$image_path"
+
+    if [[ $website != "" ]]; then
+        echo "${tab2}<a href=\"$website\" target=\"_blank\">"
+        echo "${tab2}$line" | sed "s|<rect id=\"$image_id\"|<image xlink:href=\"$image_url\"|g" | sed "s| opacity=\"0.15\"| |g"
+        echo "${tab2}</a>"
+    else
+        echo "$line" | sed "s|<rect id=\"$image_id\"|<image xlink:href=\"$image_url\"|g" | sed "s| opacity=\"0.15\"| |g"
+    fi
+}
+
+alert -t info "Removing Old Exports..."
+rm "$dest"
+rm "$destname.min.svg"
+rm "$destname.min.svgz"
+
+alert -t info "Making Org Chart..."
+IFS=''
+while read -r line; do
+    if [[ $line == *"<svg"* ]]; then
+        newline="$(echo "$line" | sed "s|<svg|<svg version=\"1.1\" xml:space=\"preserve\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"|g")
+        <defs>
+    		<style>
+    			.fill-black path {fill:#333;}
+    			line,polyline {stroke:#333; fill:none;}
+    			text, foreignObject {
+    				font-family:'Roboto-Regular','Helvetica Neue', Arial, sans-serif;
+    				font-size: 9.5px;
+    				text-align: center;
+    			}
+    			foreignObject p {margin:0;}
+    			a:hover {cursor: pointer;}
+    		</style>
+    	</defs>"
+    elif [[ $line == *'<line x1='* ]]; then
+        newline="$(echo "$line" | sed "s| fill=\"none\" stroke=\"#000\"||g")"
+    elif [[ $line == *'<polyline points='* ]]; then
+        newline="$(echo "$line" | sed "s| fill=\"none\" stroke=\"#000\"||g")"
+    elif [[ $line == *'<text transform='* ]]; then
+        newline="$(echo "$line" | sed "s| font-size=\"9\" font-family=\"SFProText-Regular, SF Pro Text\"||g")"
+    elif [[ $line == *'<rect id='* ]]; then
+        newline="$(logoswap "$line")"
+    else
+        newline="$line"
+    fi
+
+    # Print to Destination
+    echo -e "$newline" >> $dest
+done < $source
+
+alert -t info "Exporting SVG and SVGZ Files..."
+svgo --disable=mergePaths --disable=convertShapeToPath "$dest" -o "$destname.min.svg"
+svgo --disable=mergePaths --disable=convertShapeToPath "$dest" -o - | gzip -cfq9 > "$destname.min.svgz"
+
+alert -t info "Removing Source File..."
+# rm "$source"
+
+exit;

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<title>Linked Org Chart Embed</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Stephen Ginn at Crema Design Studio">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body class="body">
+	<div class="container">
+		<h1 class="text-center">Object Tag</h1>
+
+		<!-- I'm using an object tag, since img tags break links. See below. -->
+		<object type="image/svg+xml" data="orgchart-linked.min.svgz?v=2018">
+			<img src="orgchart-linked.min.svgz?v=2018" alt="AmFirst Holdings Organizational Chart" width="100%">
+		</object>
+
+		<hr />
+
+		<h1 class="text-center">SVG Tag</h1>
+		<svg class="icon"><use xlink:href="orgchart-linked.svg?v=2018"></use></svg>
+
+		<hr>
+
+		<h1 class="text-center">Img Tag</h1>
+		<img src="orgchart-linked.svg?v=2018" crossorigin="anonymous" alt="AmFirst Holdings Organizational Chart" width="100%">
+	</div>  
+</body>
+</html>
