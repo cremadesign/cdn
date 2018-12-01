@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 756.19 566.32">
-  <title>orgchart</title>
+  <title>org-chart</title>
   <g id="Text_Lines" data-name="Text &amp; Lines">
     <polyline points="159 114.19 159 77.45 379.88 77.45" fill="none" stroke="#000"/>
+    <polyline points="610.69 99.79 610.69 77.45 380.48 77.45" fill="none" stroke="#000" stroke-dasharray="5"/>
     <polyline points="707.54 425.17 707.54 395.87 71.32 395.87 71.32 440.86" fill="none" stroke="#000"/>
     <line x1="379.71" y1="261.2" x2="379.71" y2="395.52" fill="none" stroke="#000"/>
     <line x1="444.9" y1="152.48" x2="560.69" y2="152.48" fill="none" stroke="#000" stroke-dasharray="5"/>
@@ -21,7 +22,7 @@
     <text transform="translate(160.01 335.93)" font-size="9" font-family="SFProText-Regular, SF Pro Text">Puerto Rico Domiciled Company<tspan x="34.26" y="10.8">Owned 100% by</tspan><tspan x="28.4" y="21.6">AMF Holdings, Inc.</tspan></text>
     <text transform="translate(91.16 188.47)" font-size="9" font-family="SFProText-Regular, SF Pro Text">Puerto Rico Domiciled Company<tspan x="34.26" y="10.8">Owned 100% by</tspan><tspan x="21.61" y="21.6">AmFirst Holdings, Inc.</tspan></text>
     <text transform="translate(260.12 525.61)" font-size="9" font-family="SFProText-Regular, SF Pro Text">Pennsylvania Domiciled Insurer<tspan x="32.18" y="10.8">Owned 100% by</tspan><tspan x="6.46" y="21.6">AmFirst Insurance Company</tspan></text>
-    <text transform="translate(553.31 225.8)" font-size="9" font-family="SFProText-Regular, SF Pro Text">Bahamas Domiciled Insurer<tspan x="26.2" y="10.8">Owned 75% by</tspan><tspan x="-1.94" y="21.6">AmFirst Insurance Company</tspan></text>
+    <text transform="translate(553.31 225.8)" font-size="9" font-family="SFProText-Regular, SF Pro Text">Bahamas Domiciled Insurer<tspan x="-41.45" y="10.8">Owned 57.75% by AmFirst Insurance Company</tspan><tspan x="-27.85" y="21.6">Owned 17.25% by AmFirst Holdings, Inc.</tspan></text>
     <text transform="translate(138.52 534.49)" font-size="9" font-family="SFProText-Regular, SF Pro Text">Nevis Domiciled Insurer<tspan x="16.24" y="10.8">Owned 100% by</tspan><tspan x="-9.48" y="21.6">AmFirst Insurance Company</tspan></text>
     <text transform="translate(4.93 529.96)" font-size="9" font-family="SFProText-Regular, SF Pro Text">New York Domiciled Insurer <tspan x="26.13" y="10.8">Owned 100% by</tspan><tspan x="21.77" y="21.6">AmFirst Insurance</tspan><tspan x="40.01" y="32.4">Company</tspan></text>
     <text transform="translate(672.88 520.87)" font-size="9" font-family="SFProText-Regular, SF Pro Text">Owned 100% by<tspan x="-4.36" y="10.8">AmFirst Insurance</tspan><tspan x="13.88" y="21.6">Company</tspan></text>

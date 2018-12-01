@@ -8,6 +8,13 @@
 # This script replaces Illustrator-exported <rect> elements with images and links.
 # -----
 
+# Check for and Install Missing Dependencies
+# NOTE: The RSVG delegate is better at converting the shapes / lines,
+# but is ignoring linked svg files.
+# brew install imagemagick --with-librsvg
+
+# convert -size 1640x1640 orgchart-linked.svg test.png
+
 source="orgchart-source.svg"
 dest="orgchart-linked.svg"
 destname=$(basename "$dest" .svg)
