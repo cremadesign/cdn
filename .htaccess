@@ -1,6 +1,6 @@
 #
 #   Crema CDN Config
-#   Updated on 2018-10-16
+#   Updated on 2019-02-05
 #
 
 
@@ -50,35 +50,46 @@
 	RewriteRule ^ - [env=proto:http]
 
 	# Force HTTPS
-    RewriteCond %{HTTPS} !=on
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    RewriteCond %{HTTPS} !on
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 </IfModule>
+
+
+# ============================================================================
+#	301 REDIRECTS
+# ============================================================================
+
+# Redirect 301 /old.html /new.html
+
+
+# ============================================================================
+#	ERROR DOCUMENTS
+# ============================================================================
+
+ErrorDocument 404 '<style>* {margin: 0} html, body {height: 100%;} body {background: #FFF url(https://www.transparenttextures.com/patterns/clean-textile.png); font-family: -apple-system,BlinkMacSystemFont,sans-serif; font-size: 1.4rem; color: black; line-height: 1.5; text-align: center; display: flex; justify-content: center; align-items: center;} h1 {font-size: 4rem; font-weight: 600; color: inherit;} p {font-weight: 300;} .btn {color: #007bff; text-decoration: none; display: inline-block; margin-top: 15px; padding: 0.5rem 0.85rem; border: 1px solid; border-radius: 0.35rem;} .btn:hover {background: #007bff; color: white;}</style><div><h1>Space Link Paradox</h1><p>This document does not exist in this time or space.<br><a class="btn" href="/" id="actionBtn">&larr; Return to Your Time</a></p></div>'
+
+ErrorDocument 403 '<style>* {margin: 0} html, body {height: 100%;} body {background: #000 url(https://www.transparenttextures.com/patterns/diagmonds.png); font-family: -apple-system,BlinkMacSystemFont,sans-serif; font-size: 1.4rem; color: white; line-height: 1.5; text-align: center; display: flex; justify-content: center; align-items: center;} h1 {font-size: 4rem; font-weight: 600; color: inherit;} p {font-weight: 300;}</style><div><h1>Access Denied</h1><p>You do not have permission to access this content. This error has been logged.</p></div>'
+
+ErrorDocument 500 '<style>* {margin: 0;} html, body {height: 100%;} body {background: #000 url(https://www.transparenttextures.com/patterns/diagmonds.png); font-family: -apple-system,BlinkMacSystemFont,sans-serif; font-size: 1.4rem; color: white; line-height: 1.5; text-align: center; display: flex; justify-content: center; align-items: center;} h1 {font-size: 4rem; font-weight: 600; color: inherit;} p {font-weight: 300;}</style><div><h1>Internal Server Error</h1><p>The server encountered an internal error or misconfiguration and was unable to complete your request.</p></div>'
 
 
 # ============================================================================
 #	MEDIA TYPES
 # ============================================================================
 
-# Add webp support...
-
 <IfModule mod_mime.c>
     AddType image/svg+xml           svg svgz
     AddType image/webp              webp
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
 </IfModule>
 
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    # check if browser accepts webp
+    # If the browser supports WebP images and a corresponding WebP file with the
+    # same name exists at the same location, then serve up a WebP image instead.
     RewriteCond %{HTTP_ACCEPT} image/webp
-
-    # check if file is jpg or png
-    RewriteCond %{REQUEST_FILENAME} (.*).(jpg|png)$
-
-    # check if corresponding webp file exists image.png -> image.webp
-    RewriteCond %1.webp -f
-
-    # serve up webp instead
-    RewriteRule (.+).(jpg|png)$ $1.webp [T=image/webp,E=accept:1]
+    RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
+    RewriteRule (.+)\.(jpg|png)$ $1.webp [T=image/webp,E=accept:1]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -92,87 +103,38 @@ AddHandler server-parsed .htm .html .shtml .cshtml .ssi
 
 
 # ============================================================================
+#   SET HEADERS
+#   https://github.com/phanan/htaccess
+#   https://moz.com/blog/htaccess-file-snippets-for-seos
+# ============================================================================
+
+<IfModule mod_headers.c>
+    # Set Custom Headers
+    Header set Author "Stephen D. Ginn Jr at Crema Design Studio"
+    Header set Hiring-Now "Apply at cremadesignstudio.com/apply and mention this header."
+
+    # Enable HTTP Strict Transport Security (HSTS) to help prevent man-in-the-middle attacks.
+    # Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+</IfModule>
+
+
+# ============================================================================
 #	COMPRESSION
 # ============================================================================
 
 <IfModule mod_deflate.c>
-
-    # Force compression for mangled `Accept-Encoding` request headers
-    # https://developer.yahoo.com/blogs/ydn/pushing-beyond-gzipping-25601.html
-
-    <IfModule mod_setenvif.c>
-        <IfModule mod_headers.c>
-            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
-            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
-        </IfModule>
-    </IfModule>
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    # Compress all output labeled with one of the following media types.
-    # https://httpd.apache.org/docs/current/mod/mod_filter.html#addoutputfilterbytype
-
-    <IfModule mod_filter.c>
-        AddOutputFilterByType DEFLATE "application/atom+xml" \
-                                      "application/javascript" \
-                                      "application/json" \
-                                      "application/ld+json" \
-                                      "application/manifest+json" \
-                                      "application/rdf+xml" \
-                                      "application/rss+xml" \
-                                      "application/schema+json" \
-                                      "application/vnd.geo+json" \
-                                      "application/vnd.ms-fontobject" \
-                                      "application/wasm" \
-                                      "application/x-font-ttf" \
-                                      "application/x-javascript" \
-                                      "application/x-web-app-manifest+json" \
-                                      "application/xhtml+xml" \
-                                      "application/xml" \
-                                      "font/collection" \
-                                      "font/eot" \
-                                      "font/opentype" \
-                                      "font/otf" \
-                                      "font/ttf" \
-                                      "image/bmp" \
-                                      "image/svg+xml" \
-                                      "image/vnd.microsoft.icon" \
-                                      "image/x-icon" \
-                                      "text/cache-manifest" \
-                                      "text/calendar" \
-                                      "text/css" \
-                                      "text/html" \
-                                      "text/javascript" \
-                                      "text/plain" \
-                                      "text/markdown" \
-                                      "text/vcard" \
-                                      "text/vnd.rim.location.xloc" \
-                                      "text/vtt" \
-                                      "text/x-component" \
-                                      "text/x-cross-domain-policy" \
-                                      "text/xml"
-
-    </IfModule>
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    # Map the following filename extensions to the specified
-    # encoding type in order to make Apache serve the file types
-    # with the appropriate `Content-Encoding` response header
-    # (do note that this will NOT make Apache compress them!).
-    #
-    # If these files types would be served without an appropriate
-    # `Content-Enable` response header, client applications (e.g.:
-    # browsers) wouldn't know that they first need to uncompress
-    # the response, and thus, wouldn't be able to understand the
-    # content.
-    #
+    # Make sure Apache tells the browser certain file types use gzip encoding.
+    # Without that info, the browser can't understand the content.
     # https://httpd.apache.org/docs/current/mod/mod_mime.html#addencoding
 
     <IfModule mod_mime.c>
         AddEncoding gzip              svgz
     </IfModule>
 
+    # Add GZip Compression for certain file types
+    <filesmatch "\.(js|json|xml|css|html|shtml|php|ico|eot|otf|ttf)$">
+        SetOutputFilter DEFLATE
+    </filesmatch>
 </IfModule>
 
 
@@ -283,31 +245,7 @@ AddHandler server-parsed .htm .html .shtml .cshtml .ssi
 #	ALLOW CROSS DOMAIN ACCESS
 # ============================================================================
 
-<IfModule mod_headers.c>
-    # Allow cross domain access from all sites
-    Header set Access-Control-Allow-Origin "*"
-
-    # Send the CORS header for images when browsers request it.
-    <IfModule mod_setenvif.c>
-        <FilesMatch "\.(bmp|cur|gif|ico|jpe?g|png|svgz?|webp)$">
-            SetEnvIf Origin ":" IS_CORS
-            Header set Access-Control-Allow-Origin "*" env=IS_CORS
-        </FilesMatch>
-    </IfModule>
-
-    # Allow cross-origin access to web fonts.
-    <FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
-        Header set Access-Control-Allow-Origin "*"
-    </FilesMatch>
-</IfModule>
-
-
-
-Header set Strict-Transport-Security "max-age=300; includeSubDomains" env=HTTPS
-Header set Content-Security-Policy "upgrade-insecure-requests" env=HTTPS
-Header set X-Content-Type-Options "nosniff"
-Header unset "X-Powered-By"
-<FilesMatch "\.(htm|html|php)$">
-Header set X-Frame-Options "SAMEORIGIN"
-Header set X-XSS-Protection "1; mode=block"
-</FilesMatch>
+Header always set Access-Control-Allow-Origin: "*"
+Header always set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+Header always set Access-Control-Allow-Headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,C$
+Header always set Access-Control-Allow-Credentials true
