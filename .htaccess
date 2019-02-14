@@ -1,6 +1,6 @@
 #
-#   Crema CDN Config
-#   Updated on 2019-02-05
+#   Generic Config For Dreamhost Site (Edited)
+#   Updated on 2019-02-14
 #
 
 
@@ -50,8 +50,8 @@
 	RewriteRule ^ - [env=proto:http]
 
 	# Force HTTPS
-    RewriteCond %{HTTPS} !on
-    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+	RewriteCond %{HTTPS} !on
+	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 </IfModule>
 
 
@@ -89,21 +89,22 @@ ErrorDocument 500 '<style>* {margin: 0;} html, body {height: 100%;} body {backgr
     # same name exists at the same location, then serve up a WebP image instead.
     RewriteCond %{HTTP_ACCEPT} image/webp
     RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
-    RewriteRule (.+)\.(jpg|png)$ $1.webp [T=image/webp,E=accept:1]
+    RewriteRule (.+)\.(gif|jpg|png)$ $1.webp [T=image/webp,E=accept:1]
 </IfModule>
 
 <IfModule mod_headers.c>
     Header append Vary Accept env=REDIRECT_accept
 </IfModule>
 
-# Allow SSI Includes...
-
-AddType text/html .shtml
+# Default Character Sets and Language
+# Note: This also allows *.ssi includes...
+AddType 'text/html; charset=UTF-8' .htm .html .shtml .cshtml .ssi
 AddHandler server-parsed .htm .html .shtml .cshtml .ssi
+DefaultLanguage en-us
 
 
 # ============================================================================
-#   SET HEADERS
+#	SET HEADERS
 #   https://github.com/phanan/htaccess
 #   https://moz.com/blog/htaccess-file-snippets-for-seos
 # ============================================================================
@@ -132,7 +133,7 @@ AddHandler server-parsed .htm .html .shtml .cshtml .ssi
     </IfModule>
 
     # Add GZip Compression for certain file types
-    <filesmatch "\.(js|json|xml|css|html|shtml|php|ico|eot|otf|ttf)$">
+    <filesmatch "\.(js|json|xml|css|html|shtml|ssi|php|ico|eot|otf|ttf)$">
         SetOutputFilter DEFLATE
     </filesmatch>
 </IfModule>
@@ -164,7 +165,7 @@ AddHandler server-parsed .htm .html .shtml .cshtml .ssi
     </filesMatch>
 
     # 2 HOURS
-    <filesMatch "\.(html|htm|xml|txt)$">
+    <filesMatch "\.(html|htm|ssi|xml|txt)$">
         Header set Cache-Control "max-age=7200"
     </filesMatch>
 
