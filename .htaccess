@@ -144,91 +144,28 @@ DefaultLanguage en-us
 #	https://gist.github.com/hans2103/fca6f184df1c2c41b3dd
 # ============================================================================
 
-<IfModule mod_headers.c>
-	Header set Connection keep-alive
-
-	# Set Expires Headers
-	<FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|webp|gif|js|css|swf)$">
-	Header set Expires "Thu, 02 Jan 2020 20:00:00 GMT"
-	</FilesMatch>
-
-	# Cache-control headers
-
-    # 1 YEAR
-    <filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|webp|gif|swf)$">
-        Header set Cache-Control "max-age=864000, public"
-    </filesMatch>
-
-    # 1 DAY
-    <filesMatch "\.(css|js)$">
-        Header set Cache-Control "max-age=1209600, private"
-    </filesMatch>
-
-    # 2 HOURS
-    <filesMatch "\.(html|htm|ssi|xml|txt)$">
-        Header set Cache-Control "max-age=7200"
-    </filesMatch>
-
-    <FilesMatch "\.(gif|jpg|png|webp|ico|css|js|pdf|txt)$">
-        Header append Cache-Control "public"
-    </FilesMatch>
-</IfModule>
-
-<IfModule pagespeed_module>
-	ModPagespeed on
-	ModPagespeedEnableFilters make_google_analytics_async
-</IfModule>
-
-# Another method of cache control. I'm not sure both methods are necessary.
 <IfModule mod_expires.c>
-    ExpiresActive on
-    ExpiresDefault                                      "access plus 1 month"
+	# Enable expirations
+	ExpiresActive On
 
-    # CSS
-    ExpiresByType text/css                              "access plus 1 year"
+	# Default directive
+	ExpiresDefault "access plus 1 year"
 
-    # Data interchange
-    ExpiresByType application/json                      "access plus 0 seconds"
-    ExpiresByType application/xml                       "access plus 0 seconds"
-    ExpiresByType text/xml                              "access plus 0 seconds"
+	# My favicon
+	ExpiresByType image/x-icon "access plus 1 year"
 
-    # Favicon (cannot be renamed!)
-    ExpiresByType image/x-icon                          "access plus 1 week"
+	# Images
+	ExpiresByType image/gif "access plus 1 year"
+	ExpiresByType image/png "access plus 1 year"
+	ExpiresByType image/jpg "access plus 1 year"
+	ExpiresByType image/jpeg "access plus 1 year"
+	ExpiresByType image/svg+xml "access plus 1 year"
 
-    # HTML components (HTCs)
-    ExpiresByType text/x-component                      "access plus 1 month"
+	# CSS
+	ExpiresByType text/css "access plus 1 month"
 
-    # HTML
-    ExpiresByType text/html                             "access plus 0 seconds"
-
-    # JavaScript
-    ExpiresByType application/javascript                "access plus 1 year"
-
-    # Manifest files
-    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
-    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
-
-    # Media
-    ExpiresByType audio/ogg                             "access plus 1 month"
-    ExpiresByType image/gif                             "access plus 1 month"
-    ExpiresByType image/jpeg                            "access plus 1 month"
-    ExpiresByType image/png                             "access plus 1 month"
-	ExpiresByType image/webp                            "access plus 1 month"
-    ExpiresByType video/mp4                             "access plus 1 month"
-    ExpiresByType video/ogg                             "access plus 1 month"
-    ExpiresByType video/webm                            "access plus 1 month"
-
-    # Web feeds
-    ExpiresByType application/atom+xml                  "access plus 1 hour"
-    ExpiresByType application/rss+xml                   "access plus 1 hour"
-
-    # Web fonts
-    ExpiresByType application/font-woff2                "access plus 1 month"
-    ExpiresByType application/font-woff                 "access plus 1 month"
-    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
-    ExpiresByType application/x-font-ttf                "access plus 1 month"
-    ExpiresByType font/opentype                         "access plus 1 month"
-    ExpiresByType image/svg+xml                         "access plus 1 month"
+	# Javascript
+	ExpiresByType application/javascript "access plus 1 year"
 </IfModule>
 
 
@@ -248,5 +185,5 @@ DefaultLanguage en-us
 
 Header always set Access-Control-Allow-Origin: "*"
 Header always set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
-Header always set Access-Control-Allow-Headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,C$
-Header always set Access-Control-Allow-Credentials true
+Header always set Access-Control-Allow-Headers: "*"
+Header always set Access-Control-Allow-Credentials: true
