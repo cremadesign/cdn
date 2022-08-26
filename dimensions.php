@@ -22,6 +22,7 @@
 
 	$target_area = 50000; // this might need to be an average of all logos?
 	$filepath = $_GET["filepath"];
+	$filepath = str_replace(".svgz", ".svg", $filepath);
 	$path_parts = pathinfo($filepath);
 
 	switch ($path_parts['extension']) {
@@ -44,15 +45,15 @@
 
 	$newwidth = 500;
 	$newheight = ($newwidth * $height) / $width;
-	$newarea = round($newwidth * $newheight);
+	$newarea = $newwidth * $newheight;
 
 	$m = sqrt($target_area / $newarea);
 
 	$stats = [
-		'original' => round($width) . 'x' . round($height) . '=' . round($width * $height),
-		'standardized' => round($newwidth) . 'x' . round($newheight) . '=' . round($newarea),
-		'multiplier' => round($m, 2),
-		'percentage' => round($m * 100, 2) . '%'
+		'original' => $width . 'x' . $height . '=' . round($width * $height, 2),
+		'standardized' => round($newwidth, 2) . 'x' . round($newheight, 2) . '=' . round($newarea, 2),
+		'multiplier' => round($m, 8),
+		'percentage' => round($m * 100, 8) . '%'
 	];
 
 	header('Content-Type: application/json');
