@@ -20,44 +20,41 @@
 		}
 	/*/
 
+	$target_area = 50000; // this might need to be an average of all logos?
 	$filepath = $_GET["filepath"];
 	$path_parts = pathinfo($filepath);
 
 	switch ($path_parts['extension']) {
 		case 'svg':
-			// If SVG image exists then grab viewbox from first 100 characters
-			$filepath = str_replace(".png", ".svg", $filepath);
-
+			// If SVG image exists then grab viewbox from first 150 characters
 			$fp = fopen($filepath, 'r');
-			$data = fread($fp, 100);
-
-			preg_match('/(?<=viewBox=")[^"]+/', $data, $matches);
-			$viewbox = explode(" ", $matches[0]);
-
+			$data = fread($fp, 150);
 			fclose($fp);
 
-			$ratio = [
-				1,
-				2
-			];
+			preg_match('/(?<=viewBox=")[^"]+/', $data, $matches);
+			list($x, $y, $width, $height) = explode(" ", $matches[0]);
 		break;
 		case 'png':
 			// Otherwise, get the dimensions from the PNG image's EXIF info
-
 			$im = new imagick($filepath);
-
-			// Get the EXIF information
 			$properties = $im->getImageProperties('*', FALSE);
-
-			$dimensions = explode(",", $im->getImageProperty("png:IHDR.width,height"));
-
-			$ratio = [
-				intval($dimensions[0]),
-				intval($dimensions[1])
-			];
+			list($width, $height) = explode(",", $im->getImageProperty("png:IHDR.width,height"));
 		break;
 	}
 
+	$newwidth = 500;
+	$newheight = ($newwidth * $height) / $width;
+	$newarea = round($newwidth * $newheight);
+
+	$m = sqrt($target_area / $newarea);
+
+	$stats = [
+		'original' => round($width) . 'x' . round($height) . '=' . round($width * $height),
+		'standardized' => round($newwidth) . 'x' . round($newheight) . '=' . round($newarea),
+		'multiplier' => round($m, 2),
+		'percentage' => round($m * 100, 2) . '%'
+	];
+
 	header('Content-Type: application/json');
-	echo json_encode($ratio, JSON_PRETTY_PRINT);
+	echo json_encode($stats, JSON_PRETTY_PRINT);
 ?>
