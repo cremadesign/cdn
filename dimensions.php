@@ -1,61 +1,50 @@
 <?php
-	/*/
-		$filepath = str_replace(".png", ".svg", $filepath);
+	$target_area = $_GET['area'] ?? 50000; // this might need to be an average of all logos?
+	$newwidth = $_GET['width'] ?? 500;
 
-		// Get Image Dimensions
-		$path_parts = pathinfo(parse_url($carrier['src'])['path']);
+	$payload = file_get_contents('php://input');
+	$images = json_decode($payload, true);
+
+	foreach ($images as &$image) {
+		$path_parts = pathinfo(parse_url($image)['path']);
 		$dirname = $path_parts['dirname'];
 		$filename = $path_parts['filename'];
-		$filepath = substr("$dirname/$filename.png", 1);
+		$extension = str_replace("svgz", "svg", $path_parts['extension']);
+		$filepath = ltrim("$dirname/$filename.$extension", '/');
 
-		If PNG doesn't exist, then try alternate filename
-		if (! file_exists($filepath)) {
-			$filepath = str_replace(".png", "-w500.png", $filepath);
+		switch ($extension) {
+			case 'svg':
+				// If SVG image exists then grab viewbox from first 150 characters
+				$fp = fopen($filepath, 'r');
+				$data = fread($fp, 200);
+				fclose($fp);
+
+				preg_match('/(?<=viewBox=")[^"]+/', $data, $matches);
+				list($x, $y, $width, $height) = explode(" ", $matches[0]);
+			break;
+			case 'png':
+				// Otherwise, get the dimensions from the PNG image's EXIF info
+				$im = new imagick($filepath);
+				$properties = $im->getImageProperties('*', FALSE);
+				list($width, $height) = explode(",", $im->getImageProperty("png:IHDR.width,height"));
+			break;
 		}
 
-		if (! file_exists($filepath)) {
+		$newheight = ($newwidth * $height) / $width;
+		$newarea = $newwidth * $newheight;
+		$m = sqrt($target_area / $newarea);
 
-		} else {
-
-		}
-	/*/
-
-	$target_area = 50000; // this might need to be an average of all logos?
-	$filepath = $_GET["filepath"];
-	$filepath = str_replace(".svgz", ".svg", $filepath);
-	$path_parts = pathinfo($filepath);
-
-	switch ($path_parts['extension']) {
-		case 'svg':
-			// If SVG image exists then grab viewbox from first 150 characters
-			$fp = fopen($filepath, 'r');
-			$data = fread($fp, 150);
-			fclose($fp);
-
-			preg_match('/(?<=viewBox=")[^"]+/', $data, $matches);
-			list($x, $y, $width, $height) = explode(" ", $matches[0]);
-		break;
-		case 'png':
-			// Otherwise, get the dimensions from the PNG image's EXIF info
-			$im = new imagick($filepath);
-			$properties = $im->getImageProperties('*', FALSE);
-			list($width, $height) = explode(",", $im->getImageProperty("png:IHDR.width,height"));
-		break;
+		$image = [
+			'src' => $image,
+			'stats' => [
+				'original' => $width . 'x' . $height . '=' . round($width * $height, 2),
+				'standardized' => round($newwidth, 2) . 'x' . round($newheight, 2) . '=' . round($newarea, 2),
+				'multiplier' => round($m, 8),
+				'percentage' => round($m * 100, 8) . '%'
+			]
+		];
 	}
 
-	$newwidth = 500;
-	$newheight = ($newwidth * $height) / $width;
-	$newarea = $newwidth * $newheight;
-
-	$m = sqrt($target_area / $newarea);
-
-	$stats = [
-		'original' => $width . 'x' . $height . '=' . round($width * $height, 2),
-		'standardized' => round($newwidth, 2) . 'x' . round($newheight, 2) . '=' . round($newarea, 2),
-		'multiplier' => round($m, 8),
-		'percentage' => round($m * 100, 8) . '%'
-	];
-
 	header('Content-Type: application/json');
-	echo json_encode($stats, JSON_PRETTY_PRINT);
+	echo json_encode($images, JSON_PRETTY_PRINT);
 ?>
