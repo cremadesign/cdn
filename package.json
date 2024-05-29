@@ -1,0 +1,16 @@
+{
+	"name": "cdn",
+	"type": "module",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"build": "node make-orgchart.js && yarn svgz",
+		"svgz": "svgo --config svgo.config.cjs www/mwg/orgchart.svg -o - | gzip -cfq9 >| www/mwg/orgchart.svgz"
+	},
+	"repository": "https://github.com/cremadesign/cdn.git",
+	"author": "Stephen Ginn <callaginn@users.noreply.github.com>",
+	"license": "MIT",
+	"dependencies": {
+	"jsdom": "^24.0.0"
+	}
+}
