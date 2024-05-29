@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 763.26 400.46" version="1.2" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+		<style>
+			.fill-black path {fill:#333;}
+			line,polyline {stroke:#333; fill:none;}
+			text, foreignObject {
+				font-family:'Roboto-Regular','Helvetica Neue', Arial, sans-serif;
+				font-size: 7.75px;
+				text-align: center;
+			}
+			foreignObject p {margin:0;}
+			a:hover {cursor: pointer;}
+			
+			.textarea * {
+				dominant-baseline: middle;
+				text-anchor: middle;
+			}
+			
+			#text-puerto-rico {
+				transform: translate(8.25%, 84%);
+			}
+			
+			#text-amf-services {
+				transform: translate(25%, 81.75%);
+			}
+			
+			#text-london-america {
+				transform: translate(36.65%, 61.6%);
+			}
+			
+			#text-lockbox {
+				transform: translate(69%, 34.75%);
+			}
+			
+			#text-npl {
+				transform: translate(91.5%, 44.75%);
+			}
+			
+			#text-amf-holdings {
+				transform: translate(17%, 36.5%);
+			}
+			
+			#text-amfirst-insurance-company {
+				transform: translate(53.5%, 48.75%);
+			}
+			
+			#text-amfirst-specialty {
+				transform: translate(53.5%, 84%);
+			}
+			
+			#text-ps112-capital {
+				transform: translate(79%, 73%);
+			}
+			
+			#text-amfirst-holdings {
+				transform: translate(53.5%, 6.75%);
+			}
+		</style>
+	</defs>
+	
+	<g id="Text_Lines" data-name="Text &amp;amp; Lines">
+		<polyline points="125.47 98.61 125.47 68.25 408.45 67.3"/>
+		<polyline points="697.68 85.76 697.68 67.3 408.95 67.3"/>
+		<line x1="408.31" y1="240.91" x2="408.31" y2="259.21"/>
+		<line x1="408.31" y1="98.61" x2="408.31" y2="55.56"/>
+		<line x1="278.33" y1="165.74" x2="278.33" y2="67.6"/>
+		<line x1="602.43" y1="205.45" x2="602.43" y2="67.6"/>
+		<line x1="523.28" y1="106.67" x2="523.28" y2="67.6"/>
+		<polyline points="189.98 275.93 189.98 252.79 64.79 252.79 64.79 263.53"/>
+		<line x1="124.82" y1="252.29" x2="124.82" y2="182.25"/>
+		
+		<text class="textarea" id="text-amfirst-holdings">
+			<tspan x="0" dy="9">Owned 55% by Wheaton Holdings, LLC and 45% by the Estate of John Morgan</tspan>
+		</text>
+		
+		<text class="textarea" id="text-amfirst-insurance-company">
+			<tspan x="0" dy="9">Oklahoma Domiciled Insurer</tspan>
+			<tspan x="0" dy="9">Owned 100% by</tspan>
+			<tspan x="0" dy="9">AmFirst Holdings, Inc.</tspan>
+		</text>
+		
+		<text class="textarea" id="text-lockbox">
+			<tspan x="0" dy="9">Infolockbox.com, Inc.</tspan>
+			<tspan x="0" dy="9">Owned 100% by</tspan>
+			<tspan x="0" dy="9">AmFirst Holdings, Inc.</tspan>
+		</text>
+		
+		<text class="textarea" id="text-amf-holdings">
+			<tspan x="0" dy="9">Puerto Rico Domiciled Company</tspan>
+			<tspan x="0" dy="9">Owned 100% by</tspan>
+			<tspan x="0" dy="9">AmFirst Holdings, Inc.</tspan>
+		</text>
+		
+		<text class="textarea" id="text-npl">
+			<tspan x="0" dy="9">Bahamas Domiciled Insurer</tspan>
+			<tspan x="0" dy="9">Owned 75% by AmFirst Holdings, Inc.</tspan>
+		</text>
+		
+		<text class="textarea" id="text-ps112-capital">
+			<tspan x="0" dy="9">PS112 Capital, Inc.</tspan>
+			<tspan x="0" dy="9">Owned 100% by</tspan>
+			<tspan x="0" dy="9">AmFirst Holdings, Inc.</tspan>
+		</text>
+		
+		<text class="textarea" id="text-amfirst-specialty">
+			<tspan x="0" dy="9">Mississippi Domiciled Insurer</tspan>
+			<tspan x="0" dy="9">Owned 100% by</tspan>
+			<tspan x="0" dy="9">AmFirst Insurance Company</tspan>
+		</text>
+		
+		<text class="textarea" id="text-london-america">
+			<tspan x="0" dy="9">Nevis Domiciled Insurer</tspan>
+			<tspan x="0" dy="9">Owned 100% by</tspan>
+			<tspan x="0" dy="9">AmFirst Holdings, Inc.</tspan>
+		</text>
+		
+		<text class="textarea" id="text-puerto-rico">
+			<tspan x="0" dy="9">Puerto Rico Domiciled Insurer</tspan>
+			<tspan x="0" dy="9">Owned 100% by AMF Holdings, Inc.</tspan>
+		</text>
+		
+		<text class="textarea" id="text-amf-services">
+			<tspan x="0" dy="9">Puerto Rico Domiciled Company</tspan>
+			<tspan x="0" dy="9">Owned 100% by</tspan>
+			<tspan x="0" dy="9">AMF Holdings, Inc.</tspan>
+		</text>
+	</g>
+	
+	<g id="placeholders">
+		<image id="amf-holdings" x="80.72" y="102.23" width="96.82" height="46.15" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/holdings/amf-holdings-black.svgz"/>
+		<image id="amfirst" x="366.86" y="106" width="86" height="86.98" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/amfirst/color.svgz"/>
+		<image id="new-providence-life" x="653.76" y="92.68" width="86.75" height="86.14" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/npl/color.svgz"/>
+		<image id="info-lockbox" x="479.53" y="112.57" width="91" height="27.97" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/lockbox/info-black.svgz"/>
+		<image id="amf-services" x="153.94" y="285.13" width="72.31" height="43.6" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/holdings/amf-services-black.svgz"/>
+		<image id="amfirst-life" x="20.92" y="269.05" width="78.68" height="66.74" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/amfirst-life/center-color.svgz"/>
+		<image id="london-america" x="232.06" y="173.11" width="94.48" height="69.63" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/london-america/color.svgz"/>
+		<image id="amfirst-specialty" x="368.07" y="269.05" width="80.45" height="64.87" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/amfirst-specialty/color.svgz"/>
+		<image id="ps112-capital" x="563.4" y="212.7" width="78.18" height="74.2" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/ps112-capital/square-color.svg"/>
+		<image id="amfirst-holdings" x="294.39" width="227.82" height="28.99" xlink:href="https://cdn.cremadesignstudio.com/mwg/partners/amfirst-holdings/black.svgz"/>
+	</g>
+</svg>

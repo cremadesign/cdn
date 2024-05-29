@@ -1,5 +1,5 @@
-#! /usr/bin/env bash
-. ~/.bash_profile
+#! /usr/bin/env zsh
+. ~/.zshrc
 
 # -----
 # Org Chart Compiler
@@ -77,6 +77,9 @@ logoswap () {
         # Org Chart Title
         image_id="amfirst-holdings"
         image_path="partners/amfirst-holdings/black.svgz"
+    elif [[ $line == *'<rect id="ps112-capital"'* ]]; then
+        image_id="ps112-capital"
+        image_path="partners/ps112-capital/square-color.svg"
     fi
 
     image_url="https://cdn.cremadesignstudio.com/mwg/$image_path"
@@ -131,7 +134,7 @@ done < $source
 
 alert -t info "Exporting SVG and SVGZ Files..."
 svgo --disable=mergePaths --disable=convertShapeToPath "$dest" -o "$destname.min.svg"
-svgo --disable=mergePaths --disable=convertShapeToPath "$dest" -o - | gzip -cfq9 > "$destname.min.svgz"
+#svgo --disable=mergePaths --disable=convertShapeToPath "$dest" -o - | gzip -cfq9 > "$destname.min.svgz"
 
 alert -t info "Removing Source File..."
 # rm "$source"
