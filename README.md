@@ -1,6 +1,10 @@
 # Crema Logo and Fonts CDN
 The following cdn can be used for all websites managed by Crema. I don't want to use them on externally controlled sites until it's rock-stable.
 
+## Fonts
+This repo hosts several versions of Font Awesome 4 and 5, which we are using on a ton of our sites.
+
+## Logos
 <details>
 <summary>Naming Scheme</summary>
 
@@ -33,7 +37,7 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 </details>
 
 <details>
-<summary>How to Export Logos</summary>
+<summary>How to Export</summary>
 
 ## SVG Export Settings
 <img src="docs/2018-svg-export-settings.png" width="500" alt="2018 SVG Export Settings">
@@ -42,8 +46,17 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 <img src="docs/2018-svgz-save-settings.png" width="500" alt="2018 SVGZ Save Copy Settings">
 </details>
 
+## Linked Org Charts
+To avoid file duplication and optimize caching, we're using linked svg/svgz files. Unfortunately, this is a manual process, since Illustrator does not support it. However, our org chart scripts should make this process easier.
+
+Run the following commands to install these scripts:
+```
+npm install -g svgo@2.3.0
+yarn install
+```
+
 <details>
-<summary>How to Export Org Charts</summary>
+<summary>How to Export</summary>
 	
 1. Open the latest Website Organization Chart.
 
@@ -59,3 +72,8 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 
 > Note: The "orgchart.svg" file I created in May 2024 has been manually optimized. In that process, I discovered Safari doesn't support using "calc" on the svg "x" attribute, but DOES support it with style overrides.
 </details>
+
+
+
+
+
