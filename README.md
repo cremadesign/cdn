@@ -1,13 +1,6 @@
 # Crema Logo and Fonts CDN
 The following cdn can be used for all websites managed by Crema. I don't want to use them on externally controlled sites until it's rock-stable.
 
-<style>
-	summary {
-		display: flex;
-		align-items: center;
-	}
-</style>
-
 <details>
 <summary><h3>Naming Scheme</h3></summary>
 
@@ -43,17 +36,18 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 
 1. Open the latest Website Organization Chart.
 
-2. Show the "Placeholders" layer and hide the "Logos" and "Background" layers.
-<img src="2018-export-orgchart-1.png" width="400" alt="2018 MWG OrgChart Export Settings Screen 1">
+2. <details>
+	<summary>Show the "Placeholders" layer and hide the "Logos" and "Background" layers...</summary>
+	<img src="docs/2018-export-orgchart-1.png" width="400" alt="2018 MWG OrgChart Export Settings Screen 1">
+</details>
 
 3. Click File > Export > Export for Screens
-4. Choose the following export settings:
 
-	<details>
-		<summary>View export settings</summary>
-		<img src="2018-export-orgchart-2.png" width="100%" alt="2018 MWG OrgChart Export Settings Screen 2">
-		<img src="2018-export-orgchart-3.png" width="100%" alt="2018 MWG OrgChart Export Settings Screen 3">
-	</details>
+4. <details>
+	<summary>Choose the following export settings...</summary>
+	<img src="docs/2018-export-orgchart-2.png" width="100%" alt="2018 MWG OrgChart Export Settings Screen 2">
+	<img src="docs/2018-export-orgchart-3.png" width="100%" alt="2018 MWG OrgChart Export Settings Screen 3">
+</details>
 
 5. Click the "Export Artboard" button. This will save a SVG source file and minified PNG file on your desktop.
 
@@ -65,8 +59,8 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 <summary>Old SVG/SVGz Export Settings</summary>
 
 ## SVG Export Settings
-<img src="2018-svg-export-settings.png" width="500" alt="2018 SVG Export Settings">
+<img src="docs/2018-svg-export-settings.png" width="500" alt="2018 SVG Export Settings">
 
 ## SVGZ Save as Copy Settings
-<img src="2018-svgz-save-settings.png" width="500" alt="2018 SVGZ Save Copy Settings">
+<img src="docs/2018-svgz-save-settings.png" width="500" alt="2018 SVGZ Save Copy Settings">
 </details>
