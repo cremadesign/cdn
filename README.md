@@ -53,7 +53,7 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 
 4. <details><summary>Choose the following export settings...</summary><img src="docs/2018-export-orgchart-2.png" width="100%" alt="2018 MWG OrgChart Export Settings Screen 2"><img src="docs/2018-export-orgchart-3.png" width="100%" alt="2018 MWG OrgChart Export Settings Screen 3"></details>
 
-5. Click the "Export Artboard" button. This will save a SVG source file and minified PNG file on your desktop.
+5. Click the "Export Artboard" button. This will save a SVG source file and minified PNG file on your desktop. Move this file into this repo's "www/mwg" directory.
 
 6. Run `yarn build` in this repo's root directory via the command line. This script will automatically build a linked svg file using a predefined list of cdn urls.
 
