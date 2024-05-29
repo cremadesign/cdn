@@ -32,7 +32,18 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 - **Horizontal** — duhh...used for wide logos.
 </details>
 
-## Export Org Charts
+<details>
+<summary><h3>Export Logos</h3></summary>
+
+## SVG Export Settings
+<img src="docs/2018-svg-export-settings.png" width="500" alt="2018 SVG Export Settings">
+
+## SVGZ Save as Copy Settings
+<img src="docs/2018-svgz-save-settings.png" width="500" alt="2018 SVGZ Save Copy Settings">
+</details>
+
+<details>
+<summary><h3>Export Org Charts</h3></summary>
 
 1. Open the latest Website Organization Chart.
 
@@ -54,13 +65,4 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 6. Run `yarn build` in this repo's root directory via the command line. This script will automatically build a linked svg file using a predefined list of cdn urls.
 
 > Note: The "orgchart.svg" file I created in May 2024 has been manually optimized. In that process, I discovered Safari doesn't support using "calc" on the svg "x" attribute, but DOES support it with style overrides.
-
-<details>
-<summary>Old SVG/SVGz Export Settings</summary>
-
-## SVG Export Settings
-<img src="docs/2018-svg-export-settings.png" width="500" alt="2018 SVG Export Settings">
-
-## SVGZ Save as Copy Settings
-<img src="docs/2018-svgz-save-settings.png" width="500" alt="2018 SVGZ Save Copy Settings">
 </details>
