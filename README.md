@@ -2,7 +2,7 @@
 The following cdn can be used for all websites managed by Crema. I don't want to use them on externally controlled sites until it's rock-stable.
 
 <details>
-<summary><h3>Naming Scheme</h3></summary>
+<summary><h3 style="margin:0;">Naming Scheme</h3></summary>
 
 **Carriers**<br>
 http://cdn.cremadesignstudio.com/logos/carriers/ `CARRIER` - `SIZE` . `EXT`
@@ -33,7 +33,7 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 </details>
 
 <details>
-<summary><h3>Export Logos</h3></summary>
+<summary><h3 style="margin:0;">Export Logos</h3></summary>
 
 ## SVG Export Settings
 <img src="docs/2018-svg-export-settings.png" width="500" alt="2018 SVG Export Settings">
@@ -43,7 +43,7 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 </details>
 
 <details>
-<summary><h3>Export Org Charts</h3></summary>
+<summary><h3 style="margin:0;">Export Org Charts</h3></summary>
 
 1. Open the latest Website Organization Chart.
 
