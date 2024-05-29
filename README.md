@@ -1,5 +1,5 @@
-# Crema Logo and Fonts CDN
-The following cdn can be used for all websites managed by Crema. I don't want to use them on externally controlled sites until it's rock-stable.
+# Crema CDN
+The following CDN can be used for all websites managed by Crema. I do not recommend using them on externally controlled sites, since the naming schema is still in flux.
 
 ## Fonts
 This repo hosts several versions of Font Awesome 4 and 5, which we are using on a ton of our sites.
@@ -49,7 +49,7 @@ http://cdn.cremadesignstudio.com/logos/products/ `PRODUCT` / `STYLE` - `COLOR` -
 ## Linked Org Charts
 To avoid file duplication and optimize caching, we're using linked svg/svgz files. Unfortunately, this is a manual process, since Illustrator does not support it. However, our org chart scripts should make this process easier.
 
-Run the following commands to install these scripts:
+Clone this repo and run the following commands to install these scripts:
 ```
 npm install -g svgo@2.3.0
 yarn install
@@ -70,7 +70,7 @@ yarn install
 
 6. Run `yarn build` in this repo's root directory via the command line. This script will automatically build a linked svg file using a predefined list of cdn urls.
 
-> Note: The "orgchart.svg" file I created in May 2024 has been manually optimized. In that process, I discovered Safari doesn't support using "calc" on the svg "x" attribute, but DOES support it with style overrides.
+> Note: The "orgchart.svg" file I created in May 2024 has been manually optimized. In that process, I discovered Safari doesn't support using "calc" on the svg "x" attribute, but DOES support it within inline style tags.
 </details>
 
 
