@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 887.04 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#New_Gradient_Swatch-6);
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: url(#New_Gradient_Swatch-7);
+      }
+
+      .cls-3 {
+        fill: url(#New_Gradient_Swatch-4);
+      }
+
+      .cls-4 {
+        fill: url(#New_Gradient_Swatch-5);
+      }
+
+      .cls-5 {
+        fill: url(#New_Gradient_Swatch-2);
+      }
+
+      .cls-6 {
+        fill: url(#New_Gradient_Swatch-3);
+      }
+
+      .cls-7 {
+        fill: url(#New_Gradient_Swatch);
+      }
+
+      .cls-8 {
+        fill: #fff;
+      }
+    </style>
+    <linearGradient id="New_Gradient_Swatch" data-name="New Gradient Swatch" x1="182.12" y1="13.71" x2="709.43" y2="13.71" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5cf"/>
+      <stop offset="1" stop-color="#0075ff"/>
+    </linearGradient>
+    <linearGradient id="New_Gradient_Swatch-2" data-name="New Gradient Swatch" x1="182.12" y1="50" x2="709.43" y2="50" xlink:href="#New_Gradient_Swatch"/>
+    <linearGradient id="New_Gradient_Swatch-3" data-name="New Gradient Swatch" x1="182.12" y1="68.07" x2="709.43" y2="68.07" xlink:href="#New_Gradient_Swatch"/>
+    <linearGradient id="New_Gradient_Swatch-4" data-name="New Gradient Swatch" x1="182.12" x2="709.43" xlink:href="#New_Gradient_Swatch"/>
+    <linearGradient id="New_Gradient_Swatch-5" data-name="New Gradient Swatch" x1="182.12" y1="50" x2="709.43" y2="50" xlink:href="#New_Gradient_Swatch"/>
+    <linearGradient id="New_Gradient_Swatch-6" data-name="New Gradient Swatch" x1="182.12" y1="13.93" x2="709.43" y2="13.93" xlink:href="#New_Gradient_Swatch"/>
+    <linearGradient id="New_Gradient_Swatch-7" data-name="New Gradient Swatch" x1="182.12" y1="68.07" x2="709.43" y2="68.07" xlink:href="#New_Gradient_Swatch"/>
+  </defs>
+  <g>
+    <polygon class="cls-7" points="592.83 0 444.97 0 436.11 27.43 583.83 27.43 592.83 0"/>
+    <path class="cls-5" d="M633.22,29.07c1.38-.81,3.12-1.22,5.22-1.22l59,.14,9.14-28h-68.43c-6.57,0-12.5.91-17.79,2.71-5.28,1.81-9.86,4.19-13.71,7.14-3.86,2.95-6.98,6.31-9.36,10.07-2.38,3.76-3.95,7.62-4.71,11.57-.76,3.95-.67,7.83.29,11.64.62,2.47,1.63,4.75,3.02,6.86h-24.63l-1.08,3.31-6.28,19.26h-63.49l2.86-9h50.57l8.86-27.43h-53.21c-20.48,0-38.62,13.22-44.9,32.71l-10.03,31.15h191.18c6.57,0,12.5-.9,17.78-2.71,5.29-1.81,9.88-4.22,13.79-7.21,3.9-3,7.05-6.43,9.43-10.29,2.38-3.86,3.95-7.79,4.72-11.78.76-4,.67-7.91-.29-11.72-.95-3.81-2.81-7.24-5.57-10.29-2.76-3.05-6.52-5.5-11.28-7.36-4.76-1.86-10.57-2.79-17.43-2.79h-21.14c-2.1,0-3.55-.43-4.36-1.29-.81-.86-1.05-1.79-.71-2.78.33-1,1.19-1.9,2.57-2.71Z"/>
+    <path class="cls-6" d="M208.93,68.85l-10.03,31.15h37l11.71-36.43h50.57l8.86-27.43h-53.21c-20.48,0-38.62,13.22-44.9,32.71Z"/>
+    <polygon class="cls-3" points="337.18 0 189.33 0 180.47 27.43 328.18 27.43 337.18 0"/>
+    <polygon class="cls-4" points="433.5 0 396.5 0 364.21 100 442.5 100 451.35 72.57 410.07 72.57 433.5 0"/>
+    <polygon class="cls-1" points="383.97 0 349.32 0 340.18 27.86 375.11 27.86 383.97 0"/>
+    <path class="cls-2" d="M325.42,71.09l-9.31,28.91h36.71l20.57-63.86c-21.88,0-41.26,14.12-47.97,34.95Z"/>
+  </g>
+  <path class="cls-8" d="M653.84,72.89h-4.95c-1.28,0-2.26-.28-2.92-.84-.67-.56-1.06-1.26-1.19-2.1-.13-.84-.03-1.75.3-2.73.33-.97.85-1.88,1.55-2.71.7-.83,1.56-1.53,2.57-2.08,1.01-.56,2.12-.84,3.33-.84l12.22.04,2.21-6.84h-12.33c-2.45,0-4.7.36-6.77,1.07-2.07.71-3.9,1.66-5.51,2.83-.76.56-1.46,1.15-2.1,1.78l2.64-5.68h-7.38l-6.27,13.54-.57-13.54h-8.45l-6.27,13.54-.57-13.54h-19.12l-6.95,11.65.5-11.65h-13.08l-8.13,24.94h7.49l4.85-15.04-.64,15.04h8.45l8.98-15-4.85,15h8.45l5.89-18.32.76,18.32h10.05l4.81-10.37.43,10.37h10.05l4.08-8.78c0,.3,0,.59.04.89.14,1.48.65,2.81,1.51,3.99.87,1.18,2.11,2.12,3.74,2.83,1.63.71,3.69,1.07,6.18,1.07h13.9l4.42-13.65h-9.16l-2.17,6.81Z"/>
+</svg>
