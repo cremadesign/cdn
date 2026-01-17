@@ -1,8 +1,10 @@
 import {readFileSync,writeFileSync} from "fs";
 import {JSDOM} from "jsdom";
+import { execSync } from "child_process";
 
 var sourceFile = "www/mwg/#dev/orgchart-source.svg",
-	destFile = "www/mwg/orgchart-linked.svg";
+	destSVG = "www/mwg/orgchart.svg",
+	destSVGZ = "www/mwg/orgchart.svgz";
 
 var remapping = {
 	"amf-holdings": {
@@ -58,6 +60,9 @@ var remapping = {
 	},
 	"ps112-capital": {
 		"logo_path": "partners/ps112-capital/square-color.svg"
+	},
+	"custom-administrators": {
+		"logo_path": "partners/custom-administrators/color.svg",
 	}
 }
 
@@ -72,7 +77,7 @@ var xml = readFileSync(sourceFile, 'utf8'),
 			line,polyline {stroke:#333; fill:none;}
 			text, foreignObject {
 				font-family:'Roboto-Regular','Helvetica Neue', Arial, sans-serif;
-				font-size: 7.75px;
+				font-size: 6.2818px;
 				text-align: center;
 			}
 			foreignObject p {margin:0;}
@@ -84,10 +89,15 @@ svg.setAttribute("version", "1.1");
 svg.setAttribute("xml_space", "preserve");
 svg.setAttribute("xmlns_xlink", "http://www.w3.org/1999/xlink");
 
-document.querySelector("defs").remove();
+document.querySelector("defs")?.remove();
 svg.insertAdjacentHTML('afterbegin', defs);
 
 document.querySelectorAll("rect").forEach(rect => {
+	if (!remapping[rect.id]) {
+		console.warn(`No properties found for ${rect.id}`);
+		process.exit(1);
+	}
+	
 	var properties = remapping[rect.id],
 		image_url = `https://cdn.cremadesignstudio.com/mwg/${properties.logo_path}`;
 	
@@ -116,9 +126,21 @@ xmlString = xmlString.replaceAll("xmlns_xlink", "xmlns:xlink");
 xmlString = xmlString.replaceAll("xlink_href", "xlink:href");
 xmlString = xmlString.replaceAll("  ", "\t");
 
-writeFileSync(destFile, xmlString);
+console.log("Writing SVG to", destSVG);
+writeFileSync(destSVG, xmlString);
 
-console.log(xmlString);
+try {
+	console.log("Writing SVGZ to", destSVGZ);
+	execSync(
+		`svgo --config svgo.config.cjs ${destSVG} -o - | gzip -cfq9 >| ${destSVGZ}`,
+		{ stdio: "inherit", shell: true }
+	);
+} catch (err) {
+	console.error("Error running SVGO/gzip:", err);
+	process.exit(1);
+}
+
+// console.log(xmlString);
 
 
 
@@ -130,12 +152,7 @@ console.log(xmlString);
 	3. Move all lines and polylines together
 	4. Move all text together
 	5. Pretty print xml code
-/*/
-
-
-
-
-/*/
+	
 	LINE BY LINE REPLACEMENTS
 	
 	REPLACEMENT A
